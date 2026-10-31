@@ -1,0 +1,15 @@
+{
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {"driver": {"name": "synthetic-scanner-c"}},
+      "results": [
+        {
+          "ruleId": "C-7",
+          "message": {"text": "Remote server over plain HTTP (MCP07:2025); see also mcp02:2025."},
+          "properties": {}
+        }
+      ]
+    }
+  ]
+}

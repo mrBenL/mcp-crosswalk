@@ -1,0 +1,62 @@
+{
+  "$defs": {
+    "MigrationEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "note": {
+          "description": "Why the risk moved or was retired",
+          "minLength": 1,
+          "title": "Note",
+          "type": "string"
+        },
+        "to": {
+          "anyOf": [
+            {
+              "pattern": "^MCP\\d{2}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "New risk ID, or null when the risk is retired",
+          "title": "To"
+        }
+      },
+      "required": [
+        "to",
+        "note"
+      ],
+      "title": "MigrationEntry",
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "``catalog/owasp-mcp/migrations/<from>__to__<to>.yaml``: risk ID changes between versions.",
+  "properties": {
+    "from_version": {
+      "title": "From Version",
+      "type": "string"
+    },
+    "map": {
+      "additionalProperties": {
+        "$ref": "#/$defs/MigrationEntry"
+      },
+      "description": "Every risk ID of from_version, mapped to its ID in to_version (or retired)",
+      "title": "Map",
+      "type": "object"
+    },
+    "to_version": {
+      "title": "To Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "from_version",
+    "to_version",
+    "map"
+  ],
+  "title": "mcp-crosswalk OWASP catalog risk ID migration",
+  "type": "object"
+}

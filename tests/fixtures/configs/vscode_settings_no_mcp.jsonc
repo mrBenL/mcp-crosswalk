@@ -1,0 +1,6 @@
+// VS Code settings.json with no MCP keys at all.
+{
+  "editor.tabSize": 2,
+  "telemetry.telemetryLevel": "off",
+  "mcp": "UNRELATED_NON_OBJECT_MARKER",
+}

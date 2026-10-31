@@ -1,0 +1,14 @@
+# SYNTHETIC TEST-ONLY migration used by tests/test_versions.py.
+from_version: 2025-beta
+to_version: 2099-test
+map:
+  MCP01: {to: MCP01, note: Unchanged.}
+  MCP02: {to: MCP02, note: Unchanged.}
+  MCP03: {to: MCP03, note: Unchanged.}
+  MCP04: {to: MCP04, note: Unchanged.}
+  MCP05: {to: MCP05, note: Unchanged.}
+  MCP06: {to: MCP06, note: Unchanged.}
+  MCP07: {to: MCP11, note: Renumbered in the synthetic test version.}
+  MCP08: {to: null, note: Retired in the synthetic test version.}
+  MCP09: {to: MCP09, note: Unchanged.}
+  MCP10: {to: MCP10, note: Unchanged.}

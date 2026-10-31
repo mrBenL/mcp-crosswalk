@@ -1,0 +1,2867 @@
+{
+  "catalog": {
+    "frameworks": [
+      {
+        "id": "nist-800-53r5",
+        "source_sha256": "01f37cf90ea99d92242c936cbfbdebcc338eef1f71454e2acac36cc56e9bc062"
+      },
+      {
+        "id": "nist-csf-2.0",
+        "source_sha256": "4836943f21d393f2821df85ada4e6f3c0617243b4ddf44263fe68205400210b4"
+      }
+    ],
+    "owasp_version": "2025-beta"
+  },
+  "coverage": [
+    {
+      "check_ids": [
+        "MCPXW-001",
+        "MCPXW-002"
+      ],
+      "findings": 9,
+      "risk_id": "MCP01",
+      "status": "Assessed (static)",
+      "title": "Token Mismanagement & Secret Exposure"
+    },
+    {
+      "check_ids": [
+        "MCPXW-006",
+        "MCPXW-010"
+      ],
+      "findings": 4,
+      "risk_id": "MCP02",
+      "status": "Assessed (static)",
+      "title": "Privilege Escalation via Scope Creep"
+    },
+    {
+      "check_ids": [],
+      "findings": 0,
+      "risk_id": "MCP03",
+      "status": "Not assessed (requires active analysis)",
+      "title": "Tool Poisoning"
+    },
+    {
+      "check_ids": [
+        "MCPXW-003",
+        "MCPXW-004"
+      ],
+      "findings": 5,
+      "risk_id": "MCP04",
+      "status": "Assessed (static)",
+      "title": "Software Supply Chain Attacks & Dependency Tampering"
+    },
+    {
+      "check_ids": [
+        "MCPXW-005",
+        "MCPXW-010"
+      ],
+      "findings": 3,
+      "risk_id": "MCP05",
+      "status": "Assessed (static)",
+      "title": "Command Injection & Execution"
+    },
+    {
+      "check_ids": [],
+      "findings": 0,
+      "risk_id": "MCP06",
+      "status": "Not assessed (requires active analysis)",
+      "title": "Prompt Injection via Contextual Payloads"
+    },
+    {
+      "check_ids": [
+        "MCPXW-007",
+        "MCPXW-008",
+        "MCPXW-011"
+      ],
+      "findings": 3,
+      "risk_id": "MCP07",
+      "status": "Assessed (static)",
+      "title": "Insufficient Authentication & Authorization"
+    },
+    {
+      "check_ids": [],
+      "findings": 0,
+      "risk_id": "MCP08",
+      "status": "Not assessed (requires active analysis)",
+      "title": "Lack of Audit and Telemetry"
+    },
+    {
+      "check_ids": [
+        "MCPXW-009"
+      ],
+      "findings": 8,
+      "risk_id": "MCP09",
+      "status": "Assessed (static)",
+      "title": "Shadow MCP Servers"
+    },
+    {
+      "check_ids": [
+        "MCPXW-006"
+      ],
+      "findings": 2,
+      "risk_id": "MCP10",
+      "status": "Assessed (static)",
+      "title": "Context Injection & Over-Sharing"
+    }
+  ],
+  "coverage_note": "Assessed (static) means at least one configuration-indicator check ran for the risk; it is not a complete assessment of the risk.",
+  "disclaimer": "Findings are indicators relevant to the listed controls. They are not a compliance determination. Mappings are maintainer-reviewed and not endorsed by OWASP or NIST.",
+  "findings": [
+    {
+      "check_id": "MCPXW-001",
+      "client": "generic",
+      "controls": [
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "IA-5",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [
+            "03.05.12"
+          ],
+          "title": "Authenticator Management"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "IA-5(7)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [],
+          "title": "Authenticator Management | No Embedded Unencrypted Static Authenticators"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "low",
+          "control_id": "SC-28",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [
+            "03.08.05",
+            "03.13.08"
+          ],
+          "title": "Protection of Information at Rest"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "PR.AA-01",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [],
+          "title": "Identities and credentials for authorized users, services, and hardware are managed by the organization"
+        },
+        {
+          "baselines": [],
+          "confidence": "low",
+          "control_id": "PR.DS-01",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [],
+          "title": "The confidentiality, integrity, and availability of data-at-rest are protected"
+        }
+      ],
+      "evidence": "env GITHUB_PERSONAL_ACCESS_TOKEN = [REDACTED len=40 sha256=a300ff2b] (known credential prefix)",
+      "id": "<FINDING_ID>",
+      "project": null,
+      "remediation": "Remove the literal value from the config file. Reference the credential from the environment or a secret manager (for example ${env:NAME} or an input prompt), rotate the exposed credential, and prefer short-lived, narrowly scoped tokens for MCP servers.",
+      "risk_ids": [
+        "MCP01"
+      ],
+      "server": "github",
+      "severity": "high",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "title": "Literal secret in server environment variables"
+    },
+    {
+      "check_id": "MCPXW-001",
+      "client": "generic",
+      "controls": [
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "IA-5",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [
+            "03.05.12"
+          ],
+          "title": "Authenticator Management"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "IA-5(7)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [],
+          "title": "Authenticator Management | No Embedded Unencrypted Static Authenticators"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "low",
+          "control_id": "SC-28",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [
+            "03.08.05",
+            "03.13.08"
+          ],
+          "title": "Protection of Information at Rest"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "PR.AA-01",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [],
+          "title": "Identities and credentials for authorized users, services, and hardware are managed by the organization"
+        },
+        {
+          "baselines": [],
+          "confidence": "low",
+          "control_id": "PR.DS-01",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [],
+          "title": "The confidentiality, integrity, and availability of data-at-rest are protected"
+        }
+      ],
+      "evidence": "env AWS_ACCESS_KEY_ID = [REDACTED len=20 sha256=f36279c0] (known credential prefix)",
+      "id": "<FINDING_ID>",
+      "project": null,
+      "remediation": "Remove the literal value from the config file. Reference the credential from the environment or a secret manager (for example ${env:NAME} or an input prompt), rotate the exposed credential, and prefer short-lived, narrowly scoped tokens for MCP servers.",
+      "risk_ids": [
+        "MCP01"
+      ],
+      "server": "openai-helper",
+      "severity": "high",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "title": "Literal secret in server environment variables"
+    },
+    {
+      "check_id": "MCPXW-001",
+      "client": "generic",
+      "controls": [
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "IA-5",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [
+            "03.05.12"
+          ],
+          "title": "Authenticator Management"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "IA-5(7)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [],
+          "title": "Authenticator Management | No Embedded Unencrypted Static Authenticators"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "low",
+          "control_id": "SC-28",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [
+            "03.08.05",
+            "03.13.08"
+          ],
+          "title": "Protection of Information at Rest"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "PR.AA-01",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [],
+          "title": "Identities and credentials for authorized users, services, and hardware are managed by the organization"
+        },
+        {
+          "baselines": [],
+          "confidence": "low",
+          "control_id": "PR.DS-01",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [],
+          "title": "The confidentiality, integrity, and availability of data-at-rest are protected"
+        }
+      ],
+      "evidence": "env DB_PASSWORD = [REDACTED len=16 sha256=2f6691ca] (secret-like variable name)",
+      "id": "<FINDING_ID>",
+      "project": null,
+      "remediation": "Remove the literal value from the config file. Reference the credential from the environment or a secret manager (for example ${env:NAME} or an input prompt), rotate the exposed credential, and prefer short-lived, narrowly scoped tokens for MCP servers.",
+      "risk_ids": [
+        "MCP01"
+      ],
+      "server": "openai-helper",
+      "severity": "high",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "title": "Literal secret in server environment variables"
+    },
+    {
+      "check_id": "MCPXW-001",
+      "client": "generic",
+      "controls": [
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "IA-5",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [
+            "03.05.12"
+          ],
+          "title": "Authenticator Management"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "IA-5(7)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [],
+          "title": "Authenticator Management | No Embedded Unencrypted Static Authenticators"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "low",
+          "control_id": "SC-28",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [
+            "03.08.05",
+            "03.13.08"
+          ],
+          "title": "Protection of Information at Rest"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "PR.AA-01",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [],
+          "title": "Identities and credentials for authorized users, services, and hardware are managed by the organization"
+        },
+        {
+          "baselines": [],
+          "confidence": "low",
+          "control_id": "PR.DS-01",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [],
+          "title": "The confidentiality, integrity, and availability of data-at-rest are protected"
+        }
+      ],
+      "evidence": "env OPENAI_API_KEY = [REDACTED len=43 sha256=cf888303] (known credential prefix)",
+      "id": "<FINDING_ID>",
+      "project": null,
+      "remediation": "Remove the literal value from the config file. Reference the credential from the environment or a secret manager (for example ${env:NAME} or an input prompt), rotate the exposed credential, and prefer short-lived, narrowly scoped tokens for MCP servers.",
+      "risk_ids": [
+        "MCP01"
+      ],
+      "server": "openai-helper",
+      "severity": "high",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "title": "Literal secret in server environment variables"
+    },
+    {
+      "check_id": "MCPXW-002",
+      "client": "generic",
+      "controls": [
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "IA-5",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [
+            "03.05.12"
+          ],
+          "title": "Authenticator Management"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "IA-5(7)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [],
+          "title": "Authenticator Management | No Embedded Unencrypted Static Authenticators"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "low",
+          "control_id": "SC-28",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [
+            "03.08.05",
+            "03.13.08"
+          ],
+          "title": "Protection of Information at Rest"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "PR.AA-01",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [],
+          "title": "Identities and credentials for authorized users, services, and hardware are managed by the organization"
+        },
+        {
+          "baselines": [],
+          "confidence": "low",
+          "control_id": "PR.DS-01",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [],
+          "title": "The confidentiality, integrity, and availability of data-at-rest are protected"
+        }
+      ],
+      "evidence": "header Authorization: [REDACTED len=39 sha256=f898a66e]",
+      "id": "<FINDING_ID>",
+      "project": null,
+      "remediation": "Move the credential out of args, URLs, and headers into an environment reference or secret store, rotate the exposed value, and use a header reference such as 'Authorization: Bearer ${env:TOKEN}' or the client's OAuth support for remote servers.",
+      "risk_ids": [
+        "MCP01"
+      ],
+      "server": "analytics",
+      "severity": "high",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "title": "Literal secret in server arguments, URL, or headers"
+    },
+    {
+      "check_id": "MCPXW-002",
+      "client": "generic",
+      "controls": [
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "IA-5",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [
+            "03.05.12"
+          ],
+          "title": "Authenticator Management"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "IA-5(7)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [],
+          "title": "Authenticator Management | No Embedded Unencrypted Static Authenticators"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "low",
+          "control_id": "SC-28",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [
+            "03.08.05",
+            "03.13.08"
+          ],
+          "title": "Protection of Information at Rest"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "PR.AA-01",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [],
+          "title": "Identities and credentials for authorized users, services, and hardware are managed by the organization"
+        },
+        {
+          "baselines": [],
+          "confidence": "low",
+          "control_id": "PR.DS-01",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [],
+          "title": "The confidentiality, integrity, and availability of data-at-rest are protected"
+        }
+      ],
+      "evidence": "url query parameter api_key = [REDACTED len=24 sha256=dc6bfe44]",
+      "id": "<FINDING_ID>",
+      "project": null,
+      "remediation": "Move the credential out of args, URLs, and headers into an environment reference or secret store, rotate the exposed value, and use a header reference such as 'Authorization: Bearer ${env:TOKEN}' or the client's OAuth support for remote servers.",
+      "risk_ids": [
+        "MCP01"
+      ],
+      "server": "legacy-remote",
+      "severity": "high",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "title": "Literal secret in server arguments, URL, or headers"
+    },
+    {
+      "check_id": "MCPXW-002",
+      "client": "generic",
+      "controls": [
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "IA-5",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [
+            "03.05.12"
+          ],
+          "title": "Authenticator Management"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "IA-5(7)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [],
+          "title": "Authenticator Management | No Embedded Unencrypted Static Authenticators"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "low",
+          "control_id": "SC-28",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [
+            "03.08.05",
+            "03.13.08"
+          ],
+          "title": "Protection of Information at Rest"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "PR.AA-01",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [],
+          "title": "Identities and credentials for authorized users, services, and hardware are managed by the organization"
+        },
+        {
+          "baselines": [],
+          "confidence": "low",
+          "control_id": "PR.DS-01",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [],
+          "title": "The confidentiality, integrity, and availability of data-at-rest are protected"
+        }
+      ],
+      "evidence": "args[5] POSTGRES_PASSWORD=[REDACTED len=24 sha256=91c47b61] (secret-named assignment)",
+      "id": "<FINDING_ID>",
+      "project": null,
+      "remediation": "Move the credential out of args, URLs, and headers into an environment reference or secret store, rotate the exposed value, and use a header reference such as 'Authorization: Bearer ${env:TOKEN}' or the client's OAuth support for remote servers.",
+      "risk_ids": [
+        "MCP01"
+      ],
+      "server": "postgres-container",
+      "severity": "high",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "title": "Literal secret in server arguments, URL, or headers"
+    },
+    {
+      "check_id": "MCPXW-002",
+      "client": "generic",
+      "controls": [
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "IA-5",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [
+            "03.05.12"
+          ],
+          "title": "Authenticator Management"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "IA-5(7)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [],
+          "title": "Authenticator Management | No Embedded Unencrypted Static Authenticators"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "low",
+          "control_id": "SC-28",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [
+            "03.08.05",
+            "03.13.08"
+          ],
+          "title": "Protection of Information at Rest"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "PR.AA-01",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [],
+          "title": "Identities and credentials for authorized users, services, and hardware are managed by the organization"
+        },
+        {
+          "baselines": [],
+          "confidence": "low",
+          "control_id": "PR.DS-01",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [],
+          "title": "The confidentiality, integrity, and availability of data-at-rest are protected"
+        }
+      ],
+      "evidence": "args[1] URL query parameter token = [REDACTED len=24 sha256=dc6bfe44]",
+      "id": "<FINDING_ID>",
+      "project": null,
+      "remediation": "Move the credential out of args, URLs, and headers into an environment reference or secret store, rotate the exposed value, and use a header reference such as 'Authorization: Bearer ${env:TOKEN}' or the client's OAuth support for remote servers.",
+      "risk_ids": [
+        "MCP01"
+      ],
+      "server": "remote-bridge",
+      "severity": "high",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "title": "Literal secret in server arguments, URL, or headers"
+    },
+    {
+      "check_id": "MCPXW-002",
+      "client": "generic",
+      "controls": [
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "IA-5",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [
+            "03.05.12"
+          ],
+          "title": "Authenticator Management"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "IA-5(7)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [],
+          "title": "Authenticator Management | No Embedded Unencrypted Static Authenticators"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "low",
+          "control_id": "SC-28",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [
+            "03.08.05",
+            "03.13.08"
+          ],
+          "title": "Protection of Information at Rest"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "PR.AA-01",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [],
+          "title": "Identities and credentials for authorized users, services, and hardware are managed by the organization"
+        },
+        {
+          "baselines": [],
+          "confidence": "low",
+          "control_id": "PR.DS-01",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP01",
+          "sp800_171r3_derived": [],
+          "title": "The confidentiality, integrity, and availability of data-at-rest are protected"
+        }
+      ],
+      "evidence": "args[1] --api-key=[REDACTED len=42 sha256=d63fc0e7] (secret-named assignment)",
+      "id": "<FINDING_ID>",
+      "project": null,
+      "remediation": "Move the credential out of args, URLs, and headers into an environment reference or secret store, rotate the exposed value, and use a header reference such as 'Authorization: Bearer ${env:TOKEN}' or the client's OAuth support for remote servers.",
+      "risk_ids": [
+        "MCP01"
+      ],
+      "server": "slack",
+      "severity": "high",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "title": "Literal secret in server arguments, URL, or headers"
+    },
+    {
+      "check_id": "MCPXW-005",
+      "client": "generic",
+      "controls": [
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "medium",
+          "control_id": "CM-7",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP05",
+          "sp800_171r3_derived": [
+            "03.04.06"
+          ],
+          "title": "Least Functionality"
+        },
+        {
+          "baselines": [],
+          "confidence": "medium",
+          "control_id": "PR.PS-05",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP05",
+          "sp800_171r3_derived": [],
+          "title": "Installation and execution of unauthorized software are prevented"
+        }
+      ],
+      "evidence": "bash -c <inline script, 28 characters>",
+      "id": "<FINDING_ID>",
+      "project": null,
+      "remediation": "Launch the MCP server binary directly with explicit arguments instead of through a shell. If a wrapper is unavoidable, put it in a reviewed, version-controlled script file with restricted permissions and reference that file.",
+      "risk_ids": [
+        "MCP05"
+      ],
+      "server": "shell-wrapper",
+      "severity": "high",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "title": "Shell interpreter launches server with inline script"
+    },
+    {
+      "check_id": "MCPXW-006",
+      "client": "generic",
+      "controls": [
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "medium",
+          "control_id": "AC-3",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP02",
+          "sp800_171r3_derived": [
+            "03.01.02"
+          ],
+          "title": "Access Enforcement"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "AC-6",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP02",
+          "sp800_171r3_derived": [
+            "03.01.05"
+          ],
+          "title": "Least Privilege"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "low",
+          "control_id": "AC-6(1)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP02",
+          "sp800_171r3_derived": [
+            "03.01.05"
+          ],
+          "title": "Least Privilege | Authorize Access to Security Functions"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "PR.AA-05",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP02",
+          "sp800_171r3_derived": [],
+          "title": "Access permissions, entitlements, and authorizations are defined in a policy, managed, enforced, and reviewed, and incorporate the principles of least privilege and separation of duties"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "medium",
+          "control_id": "AC-6",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP10",
+          "sp800_171r3_derived": [
+            "03.01.05"
+          ],
+          "title": "Least Privilege"
+        },
+        {
+          "baselines": [],
+          "confidence": "medium",
+          "control_id": "PR.AA-05",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP10",
+          "sp800_171r3_derived": [],
+          "title": "Access permissions, entitlements, and authorizations are defined in a policy, managed, enforced, and reviewed, and incorporate the principles of least privilege and separation of duties"
+        },
+        {
+          "baselines": [],
+          "confidence": "low",
+          "control_id": "PR.DS-01",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP10",
+          "sp800_171r3_derived": [],
+          "title": "The confidentiality, integrity, and availability of data-at-rest are protected"
+        }
+      ],
+      "evidence": "args[1] = / (filesystem server granted a root or home path)",
+      "id": "<FINDING_ID>",
+      "project": null,
+      "remediation": "Scope the server to the specific project directories it needs, preferably read-only, and keep credential directories (~/.ssh, ~/.aws, ~/.config) outside every allowed root.",
+      "risk_ids": [
+        "MCP02",
+        "MCP10"
+      ],
+      "server": "filesystem",
+      "severity": "high",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "title": "Over-broad filesystem scope"
+    },
+    {
+      "check_id": "MCPXW-007",
+      "client": "generic",
+      "controls": [
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "IA-9",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP07",
+          "sp800_171r3_derived": [],
+          "title": "Service Identification and Authentication"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "medium",
+          "control_id": "SC-23",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP07",
+          "sp800_171r3_derived": [
+            "03.13.15"
+          ],
+          "title": "Session Authenticity"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "SC-8(1)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP07",
+          "sp800_171r3_derived": [
+            "03.13.08"
+          ],
+          "title": "Transmission Confidentiality and Integrity | Cryptographic Protection"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "PR.DS-02",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP07",
+          "sp800_171r3_derived": [],
+          "title": "The confidentiality, integrity, and availability of data-in-transit are protected"
+        }
+      ],
+      "evidence": "url http://mcp.example.com/mcp?api_key=[REDACTED len=24 sha256=dc6bfe44] uses cleartext HTTP to host mcp.example.com",
+      "id": "<FINDING_ID>",
+      "project": null,
+      "remediation": "Use an https:// endpoint with a valid certificate. If the server cannot offer TLS, reach it only through an encrypted tunnel or a local TLS-terminating proxy on a loopback address.",
+      "risk_ids": [
+        "MCP07"
+      ],
+      "server": "legacy-remote",
+      "severity": "high",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "title": "Remote server over cleartext HTTP"
+    },
+    {
+      "check_id": "MCPXW-010",
+      "client": "generic",
+      "controls": [
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "AC-6",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP02",
+          "sp800_171r3_derived": [
+            "03.01.05"
+          ],
+          "title": "Least Privilege"
+        },
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "medium",
+          "control_id": "CM-7",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP02",
+          "sp800_171r3_derived": [
+            "03.04.06"
+          ],
+          "title": "Least Functionality"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "CM-7(6)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP02",
+          "sp800_171r3_derived": [],
+          "title": "Least Functionality | Confined Environments with Limited Privileges"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "PR.AA-05",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP02",
+          "sp800_171r3_derived": [],
+          "title": "Access permissions, entitlements, and authorizations are defined in a policy, managed, enforced, and reviewed, and incorporate the principles of least privilege and separation of duties"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "medium",
+          "control_id": "AC-6",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP05",
+          "sp800_171r3_derived": [
+            "03.01.05"
+          ],
+          "title": "Least Privilege"
+        },
+        {
+          "baselines": [],
+          "confidence": "medium",
+          "control_id": "CM-7(6)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP05",
+          "sp800_171r3_derived": [],
+          "title": "Least Functionality | Confined Environments with Limited Privileges"
+        },
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "medium",
+          "control_id": "SC-39",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP05",
+          "sp800_171r3_derived": [],
+          "title": "Process Isolation"
+        },
+        {
+          "baselines": [],
+          "confidence": "low",
+          "control_id": "PR.IR-01",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP05",
+          "sp800_171r3_derived": [],
+          "title": "Networks and environments are protected from unauthorized logical access and usage"
+        }
+      ],
+      "evidence": "docker run --privileged",
+      "id": "<FINDING_ID>",
+      "project": null,
+      "remediation": "Run the MCP server container unprivileged with default namespaces, drop capabilities it does not need, mount only the specific directories it requires (read-only where possible), and never mount the Docker or Podman socket into an MCP server.",
+      "risk_ids": [
+        "MCP02",
+        "MCP05"
+      ],
+      "server": "postgres-container",
+      "severity": "high",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "title": "Container launch with excessive privilege"
+    },
+    {
+      "check_id": "MCPXW-010",
+      "client": "generic",
+      "controls": [
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "AC-6",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP02",
+          "sp800_171r3_derived": [
+            "03.01.05"
+          ],
+          "title": "Least Privilege"
+        },
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "medium",
+          "control_id": "CM-7",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP02",
+          "sp800_171r3_derived": [
+            "03.04.06"
+          ],
+          "title": "Least Functionality"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "CM-7(6)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP02",
+          "sp800_171r3_derived": [],
+          "title": "Least Functionality | Confined Environments with Limited Privileges"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "PR.AA-05",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP02",
+          "sp800_171r3_derived": [],
+          "title": "Access permissions, entitlements, and authorizations are defined in a policy, managed, enforced, and reviewed, and incorporate the principles of least privilege and separation of duties"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "medium",
+          "control_id": "AC-6",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP05",
+          "sp800_171r3_derived": [
+            "03.01.05"
+          ],
+          "title": "Least Privilege"
+        },
+        {
+          "baselines": [],
+          "confidence": "medium",
+          "control_id": "CM-7(6)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP05",
+          "sp800_171r3_derived": [],
+          "title": "Least Functionality | Confined Environments with Limited Privileges"
+        },
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "medium",
+          "control_id": "SC-39",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP05",
+          "sp800_171r3_derived": [],
+          "title": "Process Isolation"
+        },
+        {
+          "baselines": [],
+          "confidence": "low",
+          "control_id": "PR.IR-01",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP05",
+          "sp800_171r3_derived": [],
+          "title": "Networks and environments are protected from unauthorized logical access and usage"
+        }
+      ],
+      "evidence": "docker run volume /var/run/docker.sock:/var/run/docker.sock (container runtime socket)",
+      "id": "<FINDING_ID>",
+      "project": null,
+      "remediation": "Run the MCP server container unprivileged with default namespaces, drop capabilities it does not need, mount only the specific directories it requires (read-only where possible), and never mount the Docker or Podman socket into an MCP server.",
+      "risk_ids": [
+        "MCP02",
+        "MCP05"
+      ],
+      "server": "postgres-container",
+      "severity": "high",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "title": "Container launch with excessive privilege"
+    },
+    {
+      "check_id": "MCPXW-011",
+      "client": "generic",
+      "controls": [
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "IA-9",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP07",
+          "sp800_171r3_derived": [],
+          "title": "Service Identification and Authentication"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "medium",
+          "control_id": "SC-23",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP07",
+          "sp800_171r3_derived": [
+            "03.13.15"
+          ],
+          "title": "Session Authenticity"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "SC-8(1)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP07",
+          "sp800_171r3_derived": [
+            "03.13.08"
+          ],
+          "title": "Transmission Confidentiality and Integrity | Cryptographic Protection"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "PR.DS-02",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP07",
+          "sp800_171r3_derived": [],
+          "title": "The confidentiality, integrity, and availability of data-in-transit are protected"
+        }
+      ],
+      "evidence": "stdio launcher arg 1 carries cleartext URL http://bridge.example.com/mcp?token=[REDACTED len=24 sha256=dc6bfe44] (host bridge.example.com) via mcp-remote",
+      "id": "<FINDING_ID>",
+      "project": null,
+      "remediation": "Point the bridge at an https:// endpoint with a valid certificate. If the remote server cannot offer TLS, reach it only through an encrypted tunnel or a TLS-terminating proxy on a loopback address, and do not send tokens to it over plain HTTP.",
+      "risk_ids": [
+        "MCP07"
+      ],
+      "server": "remote-bridge",
+      "severity": "high",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "title": "Cleartext remote URL inside a stdio launcher"
+    },
+    {
+      "check_id": "MCPXW-003",
+      "client": "generic",
+      "controls": [
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "medium",
+          "control_id": "CM-7(5)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP04",
+          "sp800_171r3_derived": [
+            "03.04.08"
+          ],
+          "title": "Least Functionality | Authorized Software \u2014 Allow-by-exception"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "medium",
+          "control_id": "SI-7",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP04",
+          "sp800_171r3_derived": [],
+          "title": "Software, Firmware, and Information Integrity"
+        },
+        {
+          "baselines": [],
+          "confidence": "medium",
+          "control_id": "SR-4",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP04",
+          "sp800_171r3_derived": [],
+          "title": "Provenance"
+        },
+        {
+          "baselines": [],
+          "confidence": "medium",
+          "control_id": "ID.AM-02",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP04",
+          "sp800_171r3_derived": [],
+          "title": "Inventories of software, services, and systems managed by the organization are maintained"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "ID.RA-09",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP04",
+          "sp800_171r3_derived": [],
+          "title": "The authenticity and integrity of hardware and software are assessed prior to acquisition and use"
+        }
+      ],
+      "evidence": "npx @modelcontextprotocol/server-filesystem@latest (@latest)",
+      "id": "<FINDING_ID>",
+      "project": null,
+      "remediation": "Pin the exact package version (for example @scope/server@1.4.2 or server==1.4.2) or the container image digest (image@sha256:...), review upgrades deliberately, and consider a vetted internal registry mirror for MCP server packages.",
+      "risk_ids": [
+        "MCP04"
+      ],
+      "server": "filesystem",
+      "severity": "medium",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "title": "Unpinned package launch"
+    },
+    {
+      "check_id": "MCPXW-003",
+      "client": "generic",
+      "controls": [
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "medium",
+          "control_id": "CM-7(5)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP04",
+          "sp800_171r3_derived": [
+            "03.04.08"
+          ],
+          "title": "Least Functionality | Authorized Software \u2014 Allow-by-exception"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "medium",
+          "control_id": "SI-7",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP04",
+          "sp800_171r3_derived": [],
+          "title": "Software, Firmware, and Information Integrity"
+        },
+        {
+          "baselines": [],
+          "confidence": "medium",
+          "control_id": "SR-4",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP04",
+          "sp800_171r3_derived": [],
+          "title": "Provenance"
+        },
+        {
+          "baselines": [],
+          "confidence": "medium",
+          "control_id": "ID.AM-02",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP04",
+          "sp800_171r3_derived": [],
+          "title": "Inventories of software, services, and systems managed by the organization are maintained"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "ID.RA-09",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP04",
+          "sp800_171r3_derived": [],
+          "title": "The authenticity and integrity of hardware and software are assessed prior to acquisition and use"
+        }
+      ],
+      "evidence": "npx @modelcontextprotocol/server-github (no version)",
+      "id": "<FINDING_ID>",
+      "project": null,
+      "remediation": "Pin the exact package version (for example @scope/server@1.4.2 or server==1.4.2) or the container image digest (image@sha256:...), review upgrades deliberately, and consider a vetted internal registry mirror for MCP server packages.",
+      "risk_ids": [
+        "MCP04"
+      ],
+      "server": "github",
+      "severity": "medium",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "title": "Unpinned package launch"
+    },
+    {
+      "check_id": "MCPXW-003",
+      "client": "generic",
+      "controls": [
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "medium",
+          "control_id": "CM-7(5)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP04",
+          "sp800_171r3_derived": [
+            "03.04.08"
+          ],
+          "title": "Least Functionality | Authorized Software \u2014 Allow-by-exception"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "medium",
+          "control_id": "SI-7",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP04",
+          "sp800_171r3_derived": [],
+          "title": "Software, Firmware, and Information Integrity"
+        },
+        {
+          "baselines": [],
+          "confidence": "medium",
+          "control_id": "SR-4",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP04",
+          "sp800_171r3_derived": [],
+          "title": "Provenance"
+        },
+        {
+          "baselines": [],
+          "confidence": "medium",
+          "control_id": "ID.AM-02",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP04",
+          "sp800_171r3_derived": [],
+          "title": "Inventories of software, services, and systems managed by the organization are maintained"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "ID.RA-09",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP04",
+          "sp800_171r3_derived": [],
+          "title": "The authenticity and integrity of hardware and software are assessed prior to acquisition and use"
+        }
+      ],
+      "evidence": "uvx openai-mcp (no version)",
+      "id": "<FINDING_ID>",
+      "project": null,
+      "remediation": "Pin the exact package version (for example @scope/server@1.4.2 or server==1.4.2) or the container image digest (image@sha256:...), review upgrades deliberately, and consider a vetted internal registry mirror for MCP server packages.",
+      "risk_ids": [
+        "MCP04"
+      ],
+      "server": "openai-helper",
+      "severity": "medium",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "title": "Unpinned package launch"
+    },
+    {
+      "check_id": "MCPXW-003",
+      "client": "generic",
+      "controls": [
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "medium",
+          "control_id": "CM-7(5)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP04",
+          "sp800_171r3_derived": [
+            "03.04.08"
+          ],
+          "title": "Least Functionality | Authorized Software \u2014 Allow-by-exception"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "medium",
+          "control_id": "SI-7",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP04",
+          "sp800_171r3_derived": [],
+          "title": "Software, Firmware, and Information Integrity"
+        },
+        {
+          "baselines": [],
+          "confidence": "medium",
+          "control_id": "SR-4",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP04",
+          "sp800_171r3_derived": [],
+          "title": "Provenance"
+        },
+        {
+          "baselines": [],
+          "confidence": "medium",
+          "control_id": "ID.AM-02",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP04",
+          "sp800_171r3_derived": [],
+          "title": "Inventories of software, services, and systems managed by the organization are maintained"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "ID.RA-09",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP04",
+          "sp800_171r3_derived": [],
+          "title": "The authenticity and integrity of hardware and software are assessed prior to acquisition and use"
+        }
+      ],
+      "evidence": "docker run mcp/postgres (no tag)",
+      "id": "<FINDING_ID>",
+      "project": null,
+      "remediation": "Pin the exact package version (for example @scope/server@1.4.2 or server==1.4.2) or the container image digest (image@sha256:...), review upgrades deliberately, and consider a vetted internal registry mirror for MCP server packages.",
+      "risk_ids": [
+        "MCP04"
+      ],
+      "server": "postgres-container",
+      "severity": "medium",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "title": "Unpinned package launch"
+    },
+    {
+      "check_id": "MCPXW-006",
+      "client": "generic",
+      "controls": [
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "medium",
+          "control_id": "AC-3",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP02",
+          "sp800_171r3_derived": [
+            "03.01.02"
+          ],
+          "title": "Access Enforcement"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "AC-6",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP02",
+          "sp800_171r3_derived": [
+            "03.01.05"
+          ],
+          "title": "Least Privilege"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "low",
+          "control_id": "AC-6(1)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP02",
+          "sp800_171r3_derived": [
+            "03.01.05"
+          ],
+          "title": "Least Privilege | Authorize Access to Security Functions"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "PR.AA-05",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP02",
+          "sp800_171r3_derived": [],
+          "title": "Access permissions, entitlements, and authorizations are defined in a policy, managed, enforced, and reviewed, and incorporate the principles of least privilege and separation of duties"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "medium",
+          "control_id": "AC-6",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP10",
+          "sp800_171r3_derived": [
+            "03.01.05"
+          ],
+          "title": "Least Privilege"
+        },
+        {
+          "baselines": [],
+          "confidence": "medium",
+          "control_id": "PR.AA-05",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP10",
+          "sp800_171r3_derived": [],
+          "title": "Access permissions, entitlements, and authorizations are defined in a policy, managed, enforced, and reviewed, and incorporate the principles of least privilege and separation of duties"
+        },
+        {
+          "baselines": [],
+          "confidence": "low",
+          "control_id": "PR.DS-01",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP10",
+          "sp800_171r3_derived": [],
+          "title": "The confidentiality, integrity, and availability of data-at-rest are protected"
+        }
+      ],
+      "evidence": "args[2] = ~ (server granted a root or home path)",
+      "id": "<FINDING_ID>",
+      "project": null,
+      "remediation": "Scope the server to the specific project directories it needs, preferably read-only, and keep credential directories (~/.ssh, ~/.aws, ~/.config) outside every allowed root.",
+      "risk_ids": [
+        "MCP02",
+        "MCP10"
+      ],
+      "server": "notes",
+      "severity": "medium",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "title": "Over-broad filesystem scope"
+    },
+    {
+      "check_id": "MCPXW-009",
+      "client": "generic",
+      "controls": [
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "CM-11",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [],
+          "title": "User-installed Software"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "CM-7(5)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [
+            "03.04.08"
+          ],
+          "title": "Least Functionality | Authorized Software \u2014 Allow-by-exception"
+        },
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "CM-8",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [
+            "03.04.10"
+          ],
+          "title": "System Component Inventory"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "CM-8(3)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [],
+          "title": "System Component Inventory | Automated Unauthorized Component Detection"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "ID.AM-02",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [],
+          "title": "Inventories of software, services, and systems managed by the organization are maintained"
+        },
+        {
+          "baselines": [],
+          "confidence": "medium",
+          "control_id": "PR.PS-05",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [],
+          "title": "Installation and execution of unauthorized software are prevented"
+        }
+      ],
+      "evidence": "server name, package, and URL not on the allowlist (url https://analytics.example.com/sse)",
+      "id": "<FINDING_ID>",
+      "project": null,
+      "remediation": "Review the server. If it is approved, add its package name or URL prefix to the allowlist through your change process; otherwise remove it from the client config and follow up with the owner of the machine or repository.",
+      "risk_ids": [
+        "MCP09"
+      ],
+      "server": "analytics",
+      "severity": "medium",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "title": "Server not on the allowlist"
+    },
+    {
+      "check_id": "MCPXW-009",
+      "client": "generic",
+      "controls": [
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "CM-11",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [],
+          "title": "User-installed Software"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "CM-7(5)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [
+            "03.04.08"
+          ],
+          "title": "Least Functionality | Authorized Software \u2014 Allow-by-exception"
+        },
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "CM-8",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [
+            "03.04.10"
+          ],
+          "title": "System Component Inventory"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "CM-8(3)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [],
+          "title": "System Component Inventory | Automated Unauthorized Component Detection"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "ID.AM-02",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [],
+          "title": "Inventories of software, services, and systems managed by the organization are maintained"
+        },
+        {
+          "baselines": [],
+          "confidence": "medium",
+          "control_id": "PR.PS-05",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [],
+          "title": "Installation and execution of unauthorized software are prevented"
+        }
+      ],
+      "evidence": "server name, package, and URL not on the allowlist (url http://mcp.example.com/mcp?api_key=[REDACTED len=24 sha256=dc6bfe44])",
+      "id": "<FINDING_ID>",
+      "project": null,
+      "remediation": "Review the server. If it is approved, add its package name or URL prefix to the allowlist through your change process; otherwise remove it from the client config and follow up with the owner of the machine or repository.",
+      "risk_ids": [
+        "MCP09"
+      ],
+      "server": "legacy-remote",
+      "severity": "medium",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "title": "Server not on the allowlist"
+    },
+    {
+      "check_id": "MCPXW-009",
+      "client": "generic",
+      "controls": [
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "CM-11",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [],
+          "title": "User-installed Software"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "CM-7(5)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [
+            "03.04.08"
+          ],
+          "title": "Least Functionality | Authorized Software \u2014 Allow-by-exception"
+        },
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "CM-8",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [
+            "03.04.10"
+          ],
+          "title": "System Component Inventory"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "CM-8(3)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [],
+          "title": "System Component Inventory | Automated Unauthorized Component Detection"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "ID.AM-02",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [],
+          "title": "Inventories of software, services, and systems managed by the organization are maintained"
+        },
+        {
+          "baselines": [],
+          "confidence": "medium",
+          "control_id": "PR.PS-05",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [],
+          "title": "Installation and execution of unauthorized software are prevented"
+        }
+      ],
+      "evidence": "server name, package, and URL not on the allowlist",
+      "id": "<FINDING_ID>",
+      "project": null,
+      "remediation": "Review the server. If it is approved, add its package name or URL prefix to the allowlist through your change process; otherwise remove it from the client config and follow up with the owner of the machine or repository.",
+      "risk_ids": [
+        "MCP09"
+      ],
+      "server": "notes",
+      "severity": "medium",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "title": "Server not on the allowlist"
+    },
+    {
+      "check_id": "MCPXW-009",
+      "client": "generic",
+      "controls": [
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "CM-11",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [],
+          "title": "User-installed Software"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "CM-7(5)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [
+            "03.04.08"
+          ],
+          "title": "Least Functionality | Authorized Software \u2014 Allow-by-exception"
+        },
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "CM-8",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [
+            "03.04.10"
+          ],
+          "title": "System Component Inventory"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "CM-8(3)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [],
+          "title": "System Component Inventory | Automated Unauthorized Component Detection"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "ID.AM-02",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [],
+          "title": "Inventories of software, services, and systems managed by the organization are maintained"
+        },
+        {
+          "baselines": [],
+          "confidence": "medium",
+          "control_id": "PR.PS-05",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [],
+          "title": "Installation and execution of unauthorized software are prevented"
+        }
+      ],
+      "evidence": "server name, package, and URL not on the allowlist (package openai-mcp)",
+      "id": "<FINDING_ID>",
+      "project": null,
+      "remediation": "Review the server. If it is approved, add its package name or URL prefix to the allowlist through your change process; otherwise remove it from the client config and follow up with the owner of the machine or repository.",
+      "risk_ids": [
+        "MCP09"
+      ],
+      "server": "openai-helper",
+      "severity": "medium",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "title": "Server not on the allowlist"
+    },
+    {
+      "check_id": "MCPXW-009",
+      "client": "generic",
+      "controls": [
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "CM-11",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [],
+          "title": "User-installed Software"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "CM-7(5)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [
+            "03.04.08"
+          ],
+          "title": "Least Functionality | Authorized Software \u2014 Allow-by-exception"
+        },
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "CM-8",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [
+            "03.04.10"
+          ],
+          "title": "System Component Inventory"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "CM-8(3)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [],
+          "title": "System Component Inventory | Automated Unauthorized Component Detection"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "ID.AM-02",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [],
+          "title": "Inventories of software, services, and systems managed by the organization are maintained"
+        },
+        {
+          "baselines": [],
+          "confidence": "medium",
+          "control_id": "PR.PS-05",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [],
+          "title": "Installation and execution of unauthorized software are prevented"
+        }
+      ],
+      "evidence": "server name, package, and URL not on the allowlist (package mcp/postgres)",
+      "id": "<FINDING_ID>",
+      "project": null,
+      "remediation": "Review the server. If it is approved, add its package name or URL prefix to the allowlist through your change process; otherwise remove it from the client config and follow up with the owner of the machine or repository.",
+      "risk_ids": [
+        "MCP09"
+      ],
+      "server": "postgres-container",
+      "severity": "medium",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "title": "Server not on the allowlist"
+    },
+    {
+      "check_id": "MCPXW-009",
+      "client": "generic",
+      "controls": [
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "CM-11",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [],
+          "title": "User-installed Software"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "CM-7(5)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [
+            "03.04.08"
+          ],
+          "title": "Least Functionality | Authorized Software \u2014 Allow-by-exception"
+        },
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "CM-8",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [
+            "03.04.10"
+          ],
+          "title": "System Component Inventory"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "CM-8(3)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [],
+          "title": "System Component Inventory | Automated Unauthorized Component Detection"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "ID.AM-02",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [],
+          "title": "Inventories of software, services, and systems managed by the organization are maintained"
+        },
+        {
+          "baselines": [],
+          "confidence": "medium",
+          "control_id": "PR.PS-05",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [],
+          "title": "Installation and execution of unauthorized software are prevented"
+        }
+      ],
+      "evidence": "server name, package, and URL not on the allowlist (package mcp-remote)",
+      "id": "<FINDING_ID>",
+      "project": null,
+      "remediation": "Review the server. If it is approved, add its package name or URL prefix to the allowlist through your change process; otherwise remove it from the client config and follow up with the owner of the machine or repository.",
+      "risk_ids": [
+        "MCP09"
+      ],
+      "server": "remote-bridge",
+      "severity": "medium",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "title": "Server not on the allowlist"
+    },
+    {
+      "check_id": "MCPXW-009",
+      "client": "generic",
+      "controls": [
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "CM-11",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [],
+          "title": "User-installed Software"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "CM-7(5)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [
+            "03.04.08"
+          ],
+          "title": "Least Functionality | Authorized Software \u2014 Allow-by-exception"
+        },
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "CM-8",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [
+            "03.04.10"
+          ],
+          "title": "System Component Inventory"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "CM-8(3)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [],
+          "title": "System Component Inventory | Automated Unauthorized Component Detection"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "ID.AM-02",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [],
+          "title": "Inventories of software, services, and systems managed by the organization are maintained"
+        },
+        {
+          "baselines": [],
+          "confidence": "medium",
+          "control_id": "PR.PS-05",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [],
+          "title": "Installation and execution of unauthorized software are prevented"
+        }
+      ],
+      "evidence": "server name, package, and URL not on the allowlist",
+      "id": "<FINDING_ID>",
+      "project": null,
+      "remediation": "Review the server. If it is approved, add its package name or URL prefix to the allowlist through your change process; otherwise remove it from the client config and follow up with the owner of the machine or repository.",
+      "risk_ids": [
+        "MCP09"
+      ],
+      "server": "shell-wrapper",
+      "severity": "medium",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "title": "Server not on the allowlist"
+    },
+    {
+      "check_id": "MCPXW-009",
+      "client": "generic",
+      "controls": [
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "CM-11",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [],
+          "title": "User-installed Software"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "CM-7(5)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [
+            "03.04.08"
+          ],
+          "title": "Least Functionality | Authorized Software \u2014 Allow-by-exception"
+        },
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "CM-8",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [
+            "03.04.10"
+          ],
+          "title": "System Component Inventory"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "CM-8(3)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [],
+          "title": "System Component Inventory | Automated Unauthorized Component Detection"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "ID.AM-02",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [],
+          "title": "Inventories of software, services, and systems managed by the organization are maintained"
+        },
+        {
+          "baselines": [],
+          "confidence": "medium",
+          "control_id": "PR.PS-05",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP09",
+          "sp800_171r3_derived": [],
+          "title": "Installation and execution of unauthorized software are prevented"
+        }
+      ],
+      "evidence": "server name, package, and URL not on the allowlist",
+      "id": "<FINDING_ID>",
+      "project": null,
+      "remediation": "Review the server. If it is approved, add its package name or URL prefix to the allowlist through your change process; otherwise remove it from the client config and follow up with the owner of the machine or repository.",
+      "risk_ids": [
+        "MCP09"
+      ],
+      "server": "slack",
+      "severity": "medium",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "title": "Server not on the allowlist"
+    },
+    {
+      "check_id": "MCPXW-004",
+      "client": "generic",
+      "controls": [
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "medium",
+          "control_id": "CM-11",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP04",
+          "sp800_171r3_derived": [],
+          "title": "User-installed Software"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "medium",
+          "control_id": "CM-7(5)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP04",
+          "sp800_171r3_derived": [
+            "03.04.08"
+          ],
+          "title": "Least Functionality | Authorized Software \u2014 Allow-by-exception"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "ID.RA-09",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP04",
+          "sp800_171r3_derived": [],
+          "title": "The authenticity and integrity of hardware and software are assessed prior to acquisition and use"
+        }
+      ],
+      "evidence": "npx -y @modelcontextprotocol/server-github",
+      "id": "<FINDING_ID>",
+      "project": null,
+      "remediation": "Install the MCP server package ahead of time at a reviewed, pinned version and launch the installed binary, or at minimum pin an exact version so -y cannot pull an unreviewed release.",
+      "risk_ids": [
+        "MCP04"
+      ],
+      "server": "github",
+      "severity": "low",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "title": "Auto-confirmed package install"
+    },
+    {
+      "check_id": "MCPXW-008",
+      "client": "generic",
+      "controls": [
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "medium",
+          "control_id": "IA-2",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP07",
+          "sp800_171r3_derived": [
+            "03.05.01"
+          ],
+          "title": "Identification and Authentication (Organizational Users)"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "PR.AA-03",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP07",
+          "sp800_171r3_derived": [],
+          "title": "Users, services, and hardware are authenticated"
+        }
+      ],
+      "evidence": "url https://docs.example.com/sse has no static auth header; verify whether OAuth is negotiated at runtime",
+      "id": "<FINDING_ID>",
+      "project": null,
+      "remediation": "Confirm how the server authenticates callers. Prefer OAuth via the client's built-in support, or a header that references a secret (for example 'Bearer ${env:TOKEN}'). Do not connect to remote MCP servers that accept unauthenticated tool calls.",
+      "risk_ids": [
+        "MCP07"
+      ],
+      "server": "docs-remote",
+      "severity": "low",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "title": "Remote server with no static auth header (verify)"
+    }
+  ],
+  "generated_at": "<GENERATED_AT>",
+  "inputs": [
+    {
+      "client": "generic",
+      "error": null,
+      "path": "<TMP>/kitchen_sink.json",
+      "servers": 11,
+      "status": "ok"
+    }
+  ],
+  "schema_version": "1.1",
+  "servers": [
+    {
+      "args": [],
+      "client": "generic",
+      "command": null,
+      "env": {},
+      "headers": {
+        "Authorization": "[REDACTED len=39 sha256=f898a66e]"
+      },
+      "name": "analytics",
+      "project": null,
+      "raw_keys": [
+        "headers",
+        "type",
+        "url"
+      ],
+      "scope": "unknown",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "transport": "sse",
+      "url": "https://analytics.example.com/sse"
+    },
+    {
+      "args": [],
+      "client": "generic",
+      "command": null,
+      "env": {},
+      "headers": {},
+      "name": "docs-remote",
+      "project": null,
+      "raw_keys": [
+        "url"
+      ],
+      "scope": "unknown",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "transport": "sse",
+      "url": "https://docs.example.com/sse"
+    },
+    {
+      "args": [
+        "@modelcontextprotocol/server-filesystem@latest",
+        "/"
+      ],
+      "client": "generic",
+      "command": "npx",
+      "env": {},
+      "headers": {},
+      "name": "filesystem",
+      "project": null,
+      "raw_keys": [
+        "args",
+        "command"
+      ],
+      "scope": "unknown",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "transport": "stdio",
+      "url": null
+    },
+    {
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
+      "client": "generic",
+      "command": "npx",
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "[REDACTED len=40 sha256=a300ff2b]",
+        "GITLAB_TOKEN": "${GITLAB_TOKEN}",
+        "LOG_LEVEL": "[REDACTED len=5 sha256=0b8e9e99]"
+      },
+      "headers": {},
+      "name": "github",
+      "project": null,
+      "raw_keys": [
+        "args",
+        "command",
+        "env"
+      ],
+      "scope": "unknown",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "transport": "stdio",
+      "url": null
+    },
+    {
+      "args": [],
+      "client": "generic",
+      "command": null,
+      "env": {},
+      "headers": {},
+      "name": "legacy-remote",
+      "project": null,
+      "raw_keys": [
+        "url"
+      ],
+      "scope": "unknown",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "transport": "http",
+      "url": "http://mcp.example.com/mcp?api_key=[REDACTED len=24 sha256=dc6bfe44]"
+    },
+    {
+      "args": [
+        "/opt/mcp/notes/server.js",
+        "--root",
+        "~"
+      ],
+      "client": "generic",
+      "command": "node",
+      "env": {},
+      "headers": {},
+      "name": "notes",
+      "project": null,
+      "raw_keys": [
+        "args",
+        "command"
+      ],
+      "scope": "unknown",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "transport": "stdio",
+      "url": null
+    },
+    {
+      "args": [
+        "openai-mcp"
+      ],
+      "client": "generic",
+      "command": "uvx",
+      "env": {
+        "AWS_ACCESS_KEY_ID": "[REDACTED len=20 sha256=f36279c0]",
+        "DB_PASSWORD": "[REDACTED len=16 sha256=2f6691ca]",
+        "OPENAI_API_KEY": "[REDACTED len=43 sha256=cf888303]"
+      },
+      "headers": {},
+      "name": "openai-helper",
+      "project": null,
+      "raw_keys": [
+        "args",
+        "command",
+        "env"
+      ],
+      "scope": "unknown",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "transport": "stdio",
+      "url": null
+    },
+    {
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "--privileged",
+        "-e",
+        "POSTGRES_PASSWORD=[REDACTED len=24 sha256=91c47b61]",
+        "-v",
+        "/var/run/docker.sock:/var/run/docker.sock",
+        "mcp/postgres"
+      ],
+      "client": "generic",
+      "command": "docker",
+      "env": {},
+      "headers": {},
+      "name": "postgres-container",
+      "project": null,
+      "raw_keys": [
+        "args",
+        "command"
+      ],
+      "scope": "unknown",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "transport": "stdio",
+      "url": null
+    },
+    {
+      "args": [
+        "mcp-remote@0.1.29",
+        "http://bridge.example.com/mcp?token=[REDACTED len=24 sha256=dc6bfe44]"
+      ],
+      "client": "generic",
+      "command": "npx",
+      "env": {},
+      "headers": {},
+      "name": "remote-bridge",
+      "project": null,
+      "raw_keys": [
+        "args",
+        "command"
+      ],
+      "scope": "unknown",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "transport": "stdio",
+      "url": null
+    },
+    {
+      "args": [
+        "-c",
+        "cd /opt/mcp/tool && ./run.sh"
+      ],
+      "client": "generic",
+      "command": "bash",
+      "env": {},
+      "headers": {},
+      "name": "shell-wrapper",
+      "project": null,
+      "raw_keys": [
+        "args",
+        "command"
+      ],
+      "scope": "unknown",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "transport": "stdio",
+      "url": null
+    },
+    {
+      "args": [
+        "/opt/mcp/slack/index.js",
+        "--api-key=[REDACTED len=42 sha256=d63fc0e7]"
+      ],
+      "client": "generic",
+      "command": "node",
+      "env": {},
+      "headers": {},
+      "name": "slack",
+      "project": null,
+      "raw_keys": [
+        "args",
+        "command"
+      ],
+      "scope": "unknown",
+      "source_path": "<TMP>/kitchen_sink.json",
+      "transport": "stdio",
+      "url": null
+    }
+  ],
+  "summary": {
+    "by_severity": {
+      "high": 15,
+      "low": 2,
+      "medium": 13
+    },
+    "total_findings": 30,
+    "total_servers": 11
+  },
+  "tool": {
+    "name": "mcp-crosswalk",
+    "version": "<VERSION>"
+  }
+}

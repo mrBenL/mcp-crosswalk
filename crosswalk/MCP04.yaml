@@ -1,0 +1,94 @@
+# MCP04:2025 Software Supply Chain Attacks & Dependency Tampering (OWASP MCP Top 10, CC BY-NC-SA 4.0; ID and title only)
+# Mapping content: original to mcp-crosswalk, CC BY 4.0. Reviewed by the maintainer.
+risk_id: MCP04
+catalog_version: 2025-beta
+review_status: reviewed
+mappings:
+  - framework: nist-800-53r5
+    control_id: SI-7
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      Pinning MCP server packages to exact versions, and ideally image digests, is a precondition for
+      verifying that the approved software runs; npx or docker launches of @latest allow no such check.
+    check_ids: [MCPXW-003]
+  - framework: nist-800-53r5
+    control_id: SR-4
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      Recording which MCP server package, version, and registry each config launches maintains provenance;
+      an unpinned stdio command resolves to whatever the registry serves at launch time.
+    check_ids: [MCPXW-003]
+  - framework: nist-800-53r5
+    control_id: CM-7(5)
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      Allow-by-exception for MCP servers means approving specific package versions; unpinned or
+      auto-confirmed npx installs let unapproved code run on every client launch.
+    check_ids: [MCPXW-003, MCPXW-004]
+  - framework: nist-800-53r5
+    control_id: CM-11
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      An MCP config that runs npx -y installs software at each launch without a user prompt; policy for
+      user-installed software should govern and monitor such installs.
+    check_ids: [MCPXW-004]
+  - framework: nist-800-53r5
+    control_id: SR-3
+    relationship: subset_of
+    confidence: medium
+    rationale: >-
+      Supply chain controls and processes cover identifying and addressing weaknesses in the registries,
+      maintainers, and build pipelines behind MCP server packages; the control is broader than this need.
+    check_ids: []
+  - framework: nist-800-53r5
+    control_id: SI-7(15)
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      Cryptographically authenticating MCP server packages or container images before installation, for
+      example by signature or digest, addresses tampering but not malicious code from a legitimate publisher.
+    check_ids: []
+  - framework: nist-800-53r5
+    control_id: SR-11
+    relationship: intersects_with
+    confidence: low
+    rationale: >-
+      Typosquatted or impersonating MCP server packages on public registries are a software analogue of
+      counterfeit components; anti-counterfeit procedures apply only indirectly to open source packages.
+    check_ids: []
+  - framework: nist-800-53r5
+    control_id: RA-5
+    relationship: intersects_with
+    confidence: low
+    rationale: >-
+      Scanning MCP server packages and their dependencies for known vulnerabilities finds some tampered or
+      vulnerable components, but not novel malicious code inserted upstream.
+    check_ids: []
+  - framework: nist-csf-2.0
+    control_id: ID.RA-09
+    relationship: intersects_with
+    confidence: high
+    rationale: >-
+      Assessing an MCP server package's authenticity and integrity before use is defeated when the config
+      fetches an unpinned version or auto-confirms installation at every launch.
+    check_ids: [MCPXW-003, MCPXW-004]
+  - framework: nist-csf-2.0
+    control_id: ID.AM-02
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      An accurate software inventory needs exact MCP server versions; configs that launch @latest make the
+      running version unknowable from the inventory.
+    check_ids: [MCPXW-003]
+  - framework: nist-csf-2.0
+    control_id: GV.SC-05
+    relationship: intersects_with
+    confidence: low
+    rationale: >-
+      Supply chain security requirements can be written into agreements with commercial MCP server
+      vendors; most community MCP packages are used without any such agreement.
+    check_ids: []

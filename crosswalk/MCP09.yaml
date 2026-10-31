@@ -1,0 +1,62 @@
+# MCP09:2025 Shadow MCP Servers (OWASP MCP Top 10, CC BY-NC-SA 4.0; ID and title only)
+# Mapping content: original to mcp-crosswalk, CC BY 4.0. Reviewed by the maintainer.
+risk_id: MCP09
+catalog_version: 2025-beta
+review_status: reviewed
+mappings:
+  - framework: nist-800-53r5
+    control_id: CM-8
+    relationship: intersects_with
+    confidence: high
+    rationale: >-
+      MCP servers configured in client config files are system components that belong in the component
+      inventory; shadow servers are by definition missing from it.
+    check_ids: [MCPXW-009]
+  - framework: nist-800-53r5
+    control_id: CM-8(3)
+    relationship: intersects_with
+    confidence: high
+    rationale: >-
+      Comparing discovered MCP client configs against an approved server allowlist is automated detection
+      of unauthorized software components.
+    check_ids: [MCPXW-009]
+  - framework: nist-800-53r5
+    control_id: CM-7(5)
+    relationship: intersects_with
+    confidence: high
+    rationale: >-
+      A deny-all, permit-by-exception list of approved MCP servers, reviewed periodically, is the direct
+      preventive control for unapproved servers.
+    check_ids: [MCPXW-009]
+  - framework: nist-800-53r5
+    control_id: CM-11
+    relationship: intersects_with
+    confidence: high
+    rationale: >-
+      Adding an MCP server to a client config is user-installed software; installation policy, enforcement,
+      and compliance monitoring address shadow servers.
+    check_ids: [MCPXW-009]
+  - framework: nist-800-53r5
+    control_id: SA-9
+    relationship: intersects_with
+    confidence: low
+    rationale: >-
+      Remote MCP servers are external system services; requiring provider security commitments and
+      oversight applies once the organization knows the server is in use.
+    check_ids: []
+  - framework: nist-csf-2.0
+    control_id: ID.AM-02
+    relationship: intersects_with
+    confidence: high
+    rationale: >-
+      MCP servers are software and services that must be in the maintained inventory; the scanner's server
+      inventory is evidence for building it.
+    check_ids: [MCPXW-009]
+  - framework: nist-csf-2.0
+    control_id: PR.PS-05
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      An MCP server launched from a config without approval is unauthorized software execution that this
+      outcome aims to prevent.
+    check_ids: [MCPXW-009]

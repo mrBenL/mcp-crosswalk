@@ -1,0 +1,33 @@
+{
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {"name": "synthetic-host", "rules": [{"id": "HOST-1", "name": "HostRule"}]},
+        "extensions": [
+          {
+            "name": "synthetic-plugin",
+            "rules": [
+              {"id": "PLUG-9", "name": "ShadowServer", "properties": {"tags": ["MCP09"]}},
+              {"id": "PLUG-10", "name": "OverSharing", "shortDescription": {"text": "Context over-sharing (MCP10)"}}
+            ]
+          }
+        ]
+      },
+      "results": [
+        {"ruleId": "PLUG-9", "rule": {"id": "PLUG-9", "index": 0, "toolComponent": {"index": 0}}, "message": {"text": "Unknown server"}},
+        {"rule": {"index": 1, "toolComponent": {"index": 0}}, "message": {"text": "Indexed into the extension"}},
+        {"ruleId": "HOST-1", "ruleIndex": 0, "message": {"text": "Host rule, no MCP id"}}
+      ]
+    },
+    {
+      "tool": {"driver": {"name": "synthetic-second-run"}},
+      "results": [
+        {"ruleId": "MCP05", "message": {"text": "Shell launcher with inline script, also MCP05:2025"}, "properties": {"tags": ["MCP05"]}}
+      ]
+    },
+    {
+      "tool": {"driver": {"name": "synthetic-empty-run"}}
+    }
+  ]
+}

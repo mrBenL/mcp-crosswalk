@@ -1,0 +1,35 @@
+{
+  "numStartups": 12,
+  "theme": "dark",
+  "mcpServers": {
+    "memory": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-memory@2025.8.4"]
+    }
+  },
+  "projects": {
+    "/home/alex/app": {
+      "allowedTools": [],
+      "mcpServers": {
+        "postgres": {
+          "command": "uvx",
+          "args": ["postgres-mcp==0.3.0", "--access-mode=restricted"],
+          "env": {
+            "DATABASE_URI": "${DATABASE_URI}"
+          }
+        }
+      }
+    },
+    "/home/alex/site": {
+      "mcpServers": {
+        "fetch": {
+          "command": "uvx",
+          "args": ["mcp-server-fetch==2025.4.7"]
+        }
+      }
+    },
+    "/home/alex/empty": {
+      "history": []
+    }
+  }
+}

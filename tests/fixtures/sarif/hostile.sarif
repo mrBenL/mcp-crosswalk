@@ -1,0 +1,20 @@
+{
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {"driver": {"name": "<script>alert(1)</script>", "informationUri": "http://attacker.example/never-fetched"}},
+      "artifacts": [{"location": {"uri": "https://attacker.example/payload.json"}}],
+      "results": [
+        {
+          "ruleId": "MCP06",
+          "message": {
+            "text": "<img src=x onerror=alert(1)> =HYPERLINK(\"http://x\",\"y\") \u202eevil\u202c $(rm -rf /) `id` | MCP03",
+            "markdown": "[click](javascript:alert(1)) ![x](http://attacker.example/x.png)"
+          },
+          "locations": [{"physicalLocation": {"artifactLocation": {"uri": "../../../../etc/passwd"}}}],
+          "properties": {"tags": ["<b>bold</b>", "=cmd|' /C calc'!A0", "nist-800-53r5/SI-10"]}
+        }
+      ]
+    }
+  ]
+}

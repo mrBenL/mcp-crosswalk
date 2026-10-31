@@ -1,0 +1,26 @@
+{
+  "mcpServers": {
+    "bridge-username": {
+      "command": "npx",
+      "args": ["mcp-remote@0.1.29", "http://__FAKE_USER_TOKEN__@bridge.example.com/sse"]
+    },
+    "bridge-fragment": {
+      "command": "npx",
+      "args": ["mcp-remote@0.1.29", "http://bridge.example.com/mcp#access_token=__FAKE_OPAQUE__"]
+    },
+    "bridge-short-name": {
+      "command": "npx",
+      "args": ["mcp-remote@0.1.29", "http://bridge.example.com/mcp?k=__FAKE_OPAQUE__"]
+    },
+    "bridge-matrix": {
+      "command": "npx",
+      "args": ["mcp-remote@0.1.29", "http://bridge.example.com/mcp;token=__FAKE_OPAQUE__"]
+    },
+    "remote-username": {
+      "url": "http://__FAKE_USER_TOKEN__@remote.example.com/sse"
+    },
+    "remote-fragment": {
+      "url": "https://remote.example.com/mcp#token=__FAKE_OPAQUE__"
+    }
+  }
+}

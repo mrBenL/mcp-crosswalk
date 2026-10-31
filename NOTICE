@@ -1,0 +1,22 @@
+mcp-crosswalk
+Copyright 2026 Ben Luthy
+
+This product includes software developed as part of the mcp-crosswalk project,
+licensed under the Apache License, Version 2.0.
+
+Third-party material referenced or included:
+
+1. OWASP MCP Top 10 (2025, beta)
+   https://owasp.org/www-project-mcp-top-10/
+   Risk identifiers (MCP01:2025 ... MCP10:2025) and risk titles are used for reference and
+   attribution only. The OWASP MCP Top 10 is licensed under the Creative Commons
+   Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0).
+   No OWASP descriptive text is reproduced; all summaries, rationales, and remediation
+   text in this project are original. This project is not affiliated with or endorsed by OWASP.
+
+2. NIST SP 800-53 Revision 5 (catalog and LOW, MODERATE, HIGH, and PRIVACY baselines), NIST SP 800-171
+   Revision 3, and NIST Cybersecurity Framework (CSF) 2.0, OSCAL files
+   https://github.com/usnistgov/oscal-content
+   Works of the National Institute of Standards and Technology, an agency of the U.S. Government,
+   not subject to copyright protection in the United States. Vendored unmodified under
+   catalog/frameworks/. This project is not affiliated with or endorsed by NIST.

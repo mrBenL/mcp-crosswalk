@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "fetch": {
+      "command": "uvx",
+      "args": ["mcp-server-fetch==2025.4.7"]
+    },
+    "linear": {
+      "url": "https://mcp.linear.example.com/sse",
+      "headers": {
+        "Authorization": "Bearer ${env:LINEAR_API_KEY}"
+      }
+    }
+  }
+}

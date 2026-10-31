@@ -1,0 +1,71 @@
+# MCP02:2025 Privilege Escalation via Scope Creep (OWASP MCP Top 10, CC BY-NC-SA 4.0; ID and title only)
+# Mapping content: original to mcp-crosswalk, CC BY 4.0. Reviewed by the maintainer.
+risk_id: MCP02
+catalog_version: 2025-beta
+review_status: reviewed
+mappings:
+  - framework: nist-800-53r5
+    control_id: AC-6
+    relationship: intersects_with
+    confidence: high
+    rationale: >-
+      An MCP server is a process acting on behalf of the user; whole-disk filesystem roots or privileged
+      container options violate least privilege. Base AC-6 sets the principle but not ongoing review,
+      which AC-6(7) adds.
+    check_ids: [MCPXW-006, MCPXW-010]
+  - framework: nist-800-53r5
+    control_id: CM-7(6)
+    relationship: intersects_with
+    confidence: high
+    rationale: >-
+      MCP servers are user-installed software; running them in a confined container with limited
+      privileges is this enhancement's aim, and flags such as --privileged or --pid=host defeat it.
+    check_ids: [MCPXW-010]
+  - framework: nist-800-53r5
+    control_id: AC-3
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      Access enforcement determines which files and resources an MCP tool can reach; a filesystem server
+      rooted at / or the home directory enforces almost no boundary on what the agent may read or write.
+    check_ids: [MCPXW-006]
+  - framework: nist-800-53r5
+    control_id: CM-7
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      Least functionality limits MCP servers to the capabilities their task requires and restricts risky
+      functions such as host networking, host PID namespace, or Docker socket access for server containers.
+    check_ids: [MCPXW-010]
+  - framework: nist-800-53r5
+    control_id: AC-6(7)
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      MCP server entitlements such as filesystem roots, container flags, and API scopes tend to widen over
+      time; periodically reviewing them and removing excess privilege is the direct counter to scope creep.
+    check_ids: []
+  - framework: nist-800-53r5
+    control_id: AC-6(1)
+    relationship: intersects_with
+    confidence: low
+    rationale: >-
+      A filesystem MCP server scoped to the home directory can read security-relevant information such as
+      SSH keys and cloud credentials; this enhancement restricts access to such information to authorized roles.
+    check_ids: [MCPXW-006]
+  - framework: nist-csf-2.0
+    control_id: PR.AA-05
+    relationship: intersects_with
+    confidence: high
+    rationale: >-
+      MCP server permissions (filesystem roots, container privileges, API scopes) are entitlements that
+      should be defined, reviewed, and held to least privilege so scope does not creep over time.
+    check_ids: [MCPXW-006, MCPXW-010]
+  - framework: nist-csf-2.0
+    control_id: PR.PS-01
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      Applying configuration management to MCP client config files gives a reviewed baseline for each
+      server's granted scope, making privilege growth visible as a configuration change.
+    check_ids: []

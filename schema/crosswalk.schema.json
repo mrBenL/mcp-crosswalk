@@ -1,0 +1,99 @@
+{
+  "$defs": {
+    "Mapping": {
+      "additionalProperties": false,
+      "properties": {
+        "check_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Check Ids",
+          "type": "array"
+        },
+        "confidence": {
+          "enum": [
+            "high",
+            "medium",
+            "low"
+          ],
+          "title": "Confidence",
+          "type": "string"
+        },
+        "control_id": {
+          "description": "Display form, e.g. IA-5(7) or PR.AA-01",
+          "title": "Control Id",
+          "type": "string"
+        },
+        "framework": {
+          "enum": [
+            "nist-800-53r5",
+            "nist-csf-2.0"
+          ],
+          "title": "Framework",
+          "type": "string"
+        },
+        "rationale": {
+          "description": "1-2 sentences, 20 to 400 characters",
+          "title": "Rationale",
+          "type": "string"
+        },
+        "relationship": {
+          "description": "NIST OLIR convention: the OWASP MCP risk (focal) relative to the control (reference)",
+          "enum": [
+            "equal",
+            "subset_of",
+            "superset_of",
+            "intersects_with"
+          ],
+          "title": "Relationship",
+          "type": "string"
+        }
+      },
+      "required": [
+        "framework",
+        "control_id",
+        "relationship",
+        "confidence",
+        "rationale"
+      ],
+      "title": "Mapping",
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "catalog_version": {
+      "title": "Catalog Version",
+      "type": "string"
+    },
+    "mappings": {
+      "items": {
+        "$ref": "#/$defs/Mapping"
+      },
+      "title": "Mappings",
+      "type": "array"
+    },
+    "review_status": {
+      "enum": [
+        "draft",
+        "reviewed"
+      ],
+      "title": "Review Status",
+      "type": "string"
+    },
+    "risk_id": {
+      "pattern": "^MCP\\d{2}$",
+      "title": "Risk Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "risk_id",
+    "catalog_version",
+    "review_status",
+    "mappings"
+  ],
+  "title": "mcp-crosswalk crosswalk file",
+  "type": "object"
+}

@@ -1,0 +1,64 @@
+{
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "__FAKE_GITHUB_PAT__",
+        "GITLAB_TOKEN": "${GITLAB_TOKEN}",
+        "LOG_LEVEL": "debug"
+      }
+    },
+    "openai-helper": {
+      "command": "uvx",
+      "args": ["openai-mcp"],
+      "env": {
+        "OPENAI_API_KEY": "__FAKE_OPENAI_KEY__",
+        "AWS_ACCESS_KEY_ID": "__FAKE_AWS_KEY__",
+        "DB_PASSWORD": "__FAKE_PASSWORD__"
+      }
+    },
+    "slack": {
+      "command": "node",
+      "args": ["/opt/mcp/slack/index.js", "--api-key=__FAKE_SLACK_TOKEN__"]
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-filesystem@latest", "/"]
+    },
+    "notes": {
+      "command": "node",
+      "args": ["/opt/mcp/notes/server.js", "--root", "~"]
+    },
+    "shell-wrapper": {
+      "command": "bash",
+      "args": ["-c", "cd /opt/mcp/tool && ./run.sh"]
+    },
+    "postgres-container": {
+      "command": "docker",
+      "args": [
+        "run", "-i", "--rm", "--privileged",
+        "-e", "POSTGRES_PASSWORD=__FAKE_DB_SECRET__",
+        "-v", "/var/run/docker.sock:/var/run/docker.sock",
+        "mcp/postgres"
+      ]
+    },
+    "legacy-remote": {
+      "url": "http://mcp.example.com/mcp?api_key=__FAKE_URL_TOKEN__"
+    },
+    "analytics": {
+      "type": "sse",
+      "url": "https://analytics.example.com/sse",
+      "headers": {
+        "Authorization": "Bearer __FAKE_BEARER__"
+      }
+    },
+    "docs-remote": {
+      "url": "https://docs.example.com/sse"
+    },
+    "remote-bridge": {
+      "command": "npx",
+      "args": ["mcp-remote@0.1.29", "http://bridge.example.com/mcp?token=__FAKE_URL_TOKEN__"]
+    }
+  }
+}

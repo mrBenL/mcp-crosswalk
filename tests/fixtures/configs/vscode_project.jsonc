@@ -1,0 +1,27 @@
+// VS Code workspace MCP config: comments and trailing commas are allowed here.
+{
+  /* Prompted inputs are not secrets in the file. */
+  "inputs": [
+    {
+      "type": "promptString",
+      "id": "github-pat",
+      "description": "GitHub personal access token // not a comment",
+      "password": true,
+    },
+  ],
+  "servers": {
+    "github": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-github@2025.4.8"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${input:github-pat}", // resolved at runtime
+      },
+    },
+    "docs": {
+      "type": "http",
+      "url": "https://docs.example.com/mcp", // a URL with // inside a string survives
+      "headers": {"X-API-Key": "${env:DOCS_KEY}",},
+    },
+  },
+}

@@ -1,0 +1,13 @@
+// VS Code project settings with the flat "mcp.servers" key.
+// Copied by tests to <project>/.vscode/settings.json.
+{
+  "files.exclude": {"**/UNRELATED_EXCLUDE_MARKER": true},
+  "mcp.servers": {
+    "fetch": {
+      "command": "uvx",
+      "args": ["mcp-server-fetch==2025.1.1"],
+    },
+  },
+  // A top-level "servers" key in settings.json belongs to some other extension; it is ignored.
+  "servers": {"not-mcp": {"command": "UNRELATED_SERVERS_MARKER"}},
+}

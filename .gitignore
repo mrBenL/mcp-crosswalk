@@ -1,0 +1,37 @@
+# Python / tooling
+.venv/
+.cache/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# Scan output
+out/
+mcpxw-report/
+
+# Sandbox mount points (character devices bind-mounted by the Claude Code sandbox; see docs/build-log/DECISIONS.md D1)
+/.bash_profile
+/.bashrc
+/.gitconfig
+/.gitmodules
+/.idea
+/.mcp.json
+/.profile
+/.ripgreprc
+/.vscode
+/.zprofile
+/.zshrc
+/CORRECTIONS.md
+# The build specs now live in docs/build-log/; the sandbox still mounts empty placeholders at the old paths.
+/BUILD_SPEC.md
+/CLAUDE.md
+/LAUNCH.md
+/V02_SPEC.md

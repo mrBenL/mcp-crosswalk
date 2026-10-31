@@ -1,0 +1,135 @@
+{
+  "catalog": {
+    "frameworks": [
+      {
+        "id": "nist-800-53r5",
+        "source_sha256": "01f37cf90ea99d92242c936cbfbdebcc338eef1f71454e2acac36cc56e9bc062"
+      },
+      {
+        "id": "nist-csf-2.0",
+        "source_sha256": "4836943f21d393f2821df85ada4e6f3c0617243b4ddf44263fe68205400210b4"
+      }
+    ],
+    "owasp_version": "2025-beta"
+  },
+  "coverage": [
+    {
+      "check_ids": [
+        "MCPXW-001",
+        "MCPXW-002"
+      ],
+      "findings": 0,
+      "risk_id": "MCP01",
+      "status": "Assessed (static)",
+      "title": "Token Mismanagement & Secret Exposure"
+    },
+    {
+      "check_ids": [
+        "MCPXW-006",
+        "MCPXW-010"
+      ],
+      "findings": 0,
+      "risk_id": "MCP02",
+      "status": "Assessed (static)",
+      "title": "Privilege Escalation via Scope Creep"
+    },
+    {
+      "check_ids": [],
+      "findings": 0,
+      "risk_id": "MCP03",
+      "status": "Not assessed (requires active analysis)",
+      "title": "Tool Poisoning"
+    },
+    {
+      "check_ids": [
+        "MCPXW-003",
+        "MCPXW-004"
+      ],
+      "findings": 0,
+      "risk_id": "MCP04",
+      "status": "Assessed (static)",
+      "title": "Software Supply Chain Attacks & Dependency Tampering"
+    },
+    {
+      "check_ids": [
+        "MCPXW-005",
+        "MCPXW-010"
+      ],
+      "findings": 0,
+      "risk_id": "MCP05",
+      "status": "Assessed (static)",
+      "title": "Command Injection & Execution"
+    },
+    {
+      "check_ids": [],
+      "findings": 0,
+      "risk_id": "MCP06",
+      "status": "Not assessed (requires active analysis)",
+      "title": "Prompt Injection via Contextual Payloads"
+    },
+    {
+      "check_ids": [
+        "MCPXW-007",
+        "MCPXW-008",
+        "MCPXW-011"
+      ],
+      "findings": 0,
+      "risk_id": "MCP07",
+      "status": "Assessed (static)",
+      "title": "Insufficient Authentication & Authorization"
+    },
+    {
+      "check_ids": [],
+      "findings": 0,
+      "risk_id": "MCP08",
+      "status": "Not assessed (requires active analysis)",
+      "title": "Lack of Audit and Telemetry"
+    },
+    {
+      "check_ids": [
+        "MCPXW-009"
+      ],
+      "findings": 0,
+      "risk_id": "MCP09",
+      "status": "Not assessed (no allowlist provided; review the server inventory)",
+      "title": "Shadow MCP Servers"
+    },
+    {
+      "check_ids": [
+        "MCPXW-006"
+      ],
+      "findings": 0,
+      "risk_id": "MCP10",
+      "status": "Assessed (static)",
+      "title": "Context Injection & Over-Sharing"
+    }
+  ],
+  "coverage_note": "Assessed (static) means at least one configuration-indicator check ran for the risk; it is not a complete assessment of the risk.",
+  "disclaimer": "Findings are indicators relevant to the listed controls. They are not a compliance determination. Mappings are maintainer-reviewed and not endorsed by OWASP or NIST.",
+  "findings": [],
+  "generated_at": "<GENERATED_AT>",
+  "inputs": [
+    {
+      "client": "generic",
+      "error": "invalid JSON at line 6 column 5: Expecting ',' delimiter",
+      "path": "<TMP>/malformed.json",
+      "servers": 0,
+      "status": "parse_error"
+    }
+  ],
+  "schema_version": "1.1",
+  "servers": [],
+  "summary": {
+    "by_severity": {
+      "high": 0,
+      "low": 0,
+      "medium": 0
+    },
+    "total_findings": 0,
+    "total_servers": 0
+  },
+  "tool": {
+    "name": "mcp-crosswalk",
+    "version": "<VERSION>"
+  }
+}

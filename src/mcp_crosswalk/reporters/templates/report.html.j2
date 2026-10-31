@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src 'none'; form-action 'none'; base-uri 'none'">
+<meta name="referrer" content="no-referrer">
+<title>MCP configuration scan report</title>
+<style>
+  :root {
+    --bg: #15171a;
+    --panel: #1d2024;
+    --panel-2: #23272c;
+    --border: #2f343a;
+    --text: #e3e5e8;
+    --muted: #9aa1a9;
+    --accent: #7f9cb8;
+    --high: #d9786f;
+    --medium: #d6ad62;
+    --low: #8fa6bf;
+    --ok: #8fb39a;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 15px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  main { max-width: 1080px; margin: 0 auto; padding: 24px 16px 48px; }
+  h1 { font-size: 1.55rem; margin: 0 0 4px; letter-spacing: -0.01em; }
+  h2 { font-size: 1.15rem; margin: 36px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 1rem; margin: 22px 0 10px; }
+  p, li { color: var(--text); }
+  .meta { color: var(--muted); font-size: 0.88rem; margin: 0 0 16px; }
+  .disclaimer {
+    border-left: 3px solid var(--accent);
+    background: var(--panel);
+    padding: 12px 14px;
+    margin: 16px 0 8px;
+    border-radius: 4px;
+  }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+  .stat { background: var(--panel); border: 1px solid var(--border); border-radius: 6px; padding: 12px 14px; }
+  .stat .n { font-size: 1.5rem; font-weight: 650; display: block; }
+  .stat .l { color: var(--muted); font-size: 0.85rem; }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 6px; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--border); }
+  th { background: var(--panel-2); color: var(--muted); font-weight: 600; white-space: nowrap; }
+  tr:last-child td { border-bottom: 0; }
+  td { overflow-wrap: anywhere; }
+  .badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1px solid currentColor;
+    white-space: nowrap;
+  }
+  .sev-high { color: var(--high); }
+  .sev-medium { color: var(--medium); }
+  .sev-low { color: var(--low); }
+  .status-assessed { color: var(--ok); }
+  .status-not { color: var(--medium); }
+  .finding {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-left-width: 4px;
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin: 0 0 12px;
+  }
+  .finding.sev-high { border-left-color: var(--high); }
+  .finding.sev-medium { border-left-color: var(--medium); }
+  .finding.sev-low { border-left-color: var(--low); }
+  .finding h4 { margin: 0 0 8px; font-size: 0.98rem; color: var(--text); }
+  .finding dl { display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; margin: 0; }
+  .finding dt { color: var(--muted); font-size: 0.85rem; }
+  .finding dd { margin: 0; overflow-wrap: anywhere; }
+  .finding ul { margin: 0; padding-left: 18px; }
+  code, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.86em; }
+  code { background: var(--panel-2); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+  .muted { color: var(--muted); }
+  footer { margin-top: 40px; color: var(--muted); font-size: 0.82rem; }
+  @media (max-width: 600px) {
+    body { font-size: 14px; }
+    .finding dl { grid-template-columns: 1fr; }
+    .finding dt { margin-top: 6px; }
+  }
+</style>
+</head>
+<body>
+<main>
+<header>
+  <h1>MCP configuration scan report</h1>
+  <p class="meta">Generated {{ report.generated_at }} by {{ report.tool.name }} {{ report.tool.version }} &middot; OWASP MCP Top 10 {{ report.catalog.owasp_version }}</p>
+  <div class="disclaimer" role="note"><strong>Disclaimer.</strong> {{ report.disclaimer }}</div>
+</header>
+
+<section aria-labelledby="summary">
+  <h2 id="summary">Summary</h2>
+  <div class="stats">
+    <div class="stat"><span class="n sev-high">{{ report.summary.by_severity.get("high", 0) }}</span><span class="l">High</span></div>
+    <div class="stat"><span class="n sev-medium">{{ report.summary.by_severity.get("medium", 0) }}</span><span class="l">Medium</span></div>
+    <div class="stat"><span class="n sev-low">{{ report.summary.by_severity.get("low", 0) }}</span><span class="l">Low</span></div>
+    <div class="stat"><span class="n">{{ report.summary.total_findings }}</span><span class="l">Total findings</span></div>
+    <div class="stat"><span class="n">{{ report.summary.total_servers }}</span><span class="l">Servers inventoried</span></div>
+    <div class="stat"><span class="n">{{ inputs_ok }} / {{ report.inputs | length }}</span><span class="l">Config files read</span></div>
+  </div>
+  <h3>Inputs</h3>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Path</th><th>Client</th><th>Status</th><th>Servers</th><th>Error</th></tr></thead>
+    <tbody>
+    {% for item in report.inputs %}
+      <tr><td class="mono">{{ item.path }}</td><td>{{ item.client }}</td><td>{{ item.status }}</td><td>{{ item.servers }}</td><td>{{ item.error or "" }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section aria-labelledby="coverage">
+  <h2 id="coverage">Coverage matrix</h2>
+  <p>Risks that cannot be assessed from configuration files are shown as not assessed. A lack of findings for those risks means nothing. {{ report.coverage_note }}{% if not_assessed %} Not assessed in this scan: {{ not_assessed | join(", ") }}.{% endif %}</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Risk</th><th>Title</th><th>Status</th><th>Checks</th><th>Findings</th></tr></thead>
+    <tbody>
+    {% for row in report.coverage %}
+      <tr>
+        <td>{{ row.risk_id }}</td>
+        <td>{{ row.title }}</td>
+        <td class="{{ 'status-assessed' if row.status == 'Assessed (static)' else 'status-not' }}">{{ row.status }}</td>
+        <td>{{ row.check_ids | join(", ") or "-" }}</td>
+        <td>{{ row.findings }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section aria-labelledby="findings">
+  <h2 id="findings">Findings</h2>
+  {% if not groups %}
+  <p>No findings for the risks that were assessed statically.</p>
+  {% endif %}
+  {% for group in groups %}
+  <h3><span class="badge sev-{{ group.severity }}">{{ group.severity | upper }}</span> {{ group.findings | length }} finding{{ "" if group.findings | length == 1 else "s" }}</h3>
+  {% for f in group.findings %}
+  <article class="finding sev-{{ f.severity }}">
+    <h4><span class="badge sev-{{ f.severity }}">{{ f.severity | upper }}</span> {{ f.check_id }}: {{ f.title }}</h4>
+    <dl>
+      <dt>Server</dt><dd><code>{{ f.server }}</code> ({{ f.client }})</dd>
+      <dt>Source</dt><dd class="mono">{{ f.source_path }}</dd>
+      <dt>Risks</dt><dd>{% for r in f.risk_ids %}{{ r }} ({{ titles.get(r, "") }}){{ "; " if not loop.last }}{% endfor %}</dd>
+      <dt>Evidence</dt><dd class="mono">{{ f.evidence }}</dd>
+      <dt>Relevant controls</dt>
+      <dd>
+        {% if f.controls %}
+        <ul>
+        {% for c in f.controls %}
+          <li><strong>{{ framework_labels[c.framework] }} {{ c.control_id }}</strong> {{ c.title }} <span class="muted">({{ c.risk_id }}; {{ c.relationship }}, {{ c.confidence }} confidence)</span>{% if federal_note(c) %}<br><span class="muted">{{ federal_note(c) }}</span>{% endif %}</li>
+        {% endfor %}
+        </ul>
+        <span class="muted">Indicators relevant to these controls, not a compliance determination.</span>
+        {% else %}<span class="muted">None mapped.</span>{% endif %}
+      </dd>
+      <dt>Remediation</dt><dd>{{ f.remediation }}</dd>
+      <dt>Finding ID</dt><dd class="mono">{{ f.id }}</dd>
+    </dl>
+  </article>
+  {% endfor %}
+  {% endfor %}
+</section>
+
+<section aria-labelledby="inventory">
+  <h2 id="inventory">Server inventory</h2>
+  <p>Every configured server, for manual review. Environment and header values are redacted unless they are variable references.</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Server</th><th>Client</th><th>Scope</th><th>Transport</th><th>Command or URL</th><th>Env keys</th><th>Source</th></tr></thead>
+    <tbody>
+    {% for s in report.servers %}
+      <tr>
+        <td><code>{{ s.name }}</code>{% if s.project %}<br><span class="muted mono">{{ s.project }}</span>{% endif %}</td>
+        <td>{{ s.client }}</td>
+        <td>{{ s.scope }}</td>
+        <td>{{ s.transport }}</td>
+        <td class="mono">{% if s.url %}{{ s.url }}{% else %}{{ s.command or "" }} {{ s.args | join(" ") }}{% endif %}</td>
+        <td class="mono">{{ s.env.keys() | sort | join(", ") }}</td>
+        <td class="mono">{{ s.source_path }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<footer>
+  <p>{{ report.disclaimer }}</p>
+  <p>Risk IDs and titles: OWASP MCP Top 10 ({{ report.catalog.owasp_version }}), CC BY-NC-SA 4.0, referenced with attribution. Control text: NIST SP 800-53 Rev 5 and NIST CSF 2.0 (public domain).{% for fw in report.catalog.frameworks %} {{ fw.id }} catalog SHA-256 <span class="mono">{{ fw.source_sha256[:16] }}</span>&hellip;{% endfor %}</p>
+</footer>
+</main>
+</body>
+</html>

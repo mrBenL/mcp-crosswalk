@@ -1,0 +1,64 @@
+# MCP03:2025 Tool Poisoning (OWASP MCP Top 10, CC BY-NC-SA 4.0; ID and title only)
+# Mapping content: original to mcp-crosswalk, CC BY 4.0. Reviewed by the maintainer.
+# Not assessed by the static scanner: tool descriptions are only visible by connecting to a server.
+risk_id: MCP03
+catalog_version: 2025-beta
+review_status: reviewed
+mappings:
+  - framework: nist-800-53r5
+    control_id: SI-7
+    relationship: intersects_with
+    confidence: high
+    rationale: >-
+      Integrity verification of the tool names, descriptions, and input schemas an MCP server returns from
+      tools/list detects unauthorized changes to that information, including a silent rug-pull swap after approval.
+    check_ids: []
+  - framework: nist-800-53r5
+    control_id: SI-7(1)
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      Checking a hash of each MCP server's tool definitions at session startup against an approved baseline
+      is one concrete integrity check; it does not detect poisoning already present at approval time.
+    check_ids: []
+  - framework: nist-800-53r5
+    control_id: SI-10
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      Tool descriptions and schemas are inputs the MCP client passes to the model; validating them for
+      hidden instructions, unusual characters, or out-of-place directives reduces poisoning.
+    check_ids: []
+  - framework: nist-800-53r5
+    control_id: SI-15
+    relationship: intersects_with
+    confidence: low
+    rationale: >-
+      Where the organization operates the MCP server, validating that its tool names, descriptions, and
+      schemas match expected content limits poisoning at the source; for third-party servers the
+      client-side counterpart is SI-10.
+    check_ids: []
+  - framework: nist-800-53r5
+    control_id: CM-14
+    relationship: intersects_with
+    confidence: low
+    rationale: >-
+      Requiring signed MCP server packages establishes who published the tool definitions, but a signed
+      server can still ship poisoned descriptions, so the overlap is indirect.
+    check_ids: []
+  - framework: nist-csf-2.0
+    control_id: ID.RA-09
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      Assessing an MCP server's integrity before use should include reviewing its tool descriptions and
+      schemas, where poisoned instructions reside, not only the package that delivers them.
+    check_ids: []
+  - framework: nist-csf-2.0
+    control_id: DE.CM-09
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      Monitoring the MCP runtime environment for changed tool definitions and anomalous tool calls helps
+      detect poisoning that was not caught at approval time.
+    check_ids: []

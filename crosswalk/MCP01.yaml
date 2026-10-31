@@ -1,0 +1,56 @@
+# MCP01:2025 Token Mismanagement & Secret Exposure (OWASP MCP Top 10, CC BY-NC-SA 4.0; ID and title only)
+# Mapping content: original to mcp-crosswalk, CC BY 4.0. Reviewed by the maintainer.
+risk_id: MCP01
+catalog_version: 2025-beta
+review_status: reviewed
+mappings:
+  - framework: nist-800-53r5
+    control_id: IA-5(7)
+    relationship: intersects_with
+    confidence: high
+    rationale: >-
+      A plaintext token in an MCP client config file's env, args, or headers is an unencrypted static
+      authenticator kept in static storage, the condition this enhancement addresses. It does not cover
+      leakage through logs or model context, so it is a subset of the need.
+    check_ids: [MCPXW-001, MCPXW-002]
+  - framework: nist-800-53r5
+    control_id: IA-5
+    relationship: intersects_with
+    confidence: high
+    rationale: >-
+      Tokens that MCP servers use to reach downstream APIs are authenticators whose content, strength,
+      protection, and rotation fall under authenticator management. MCP-specific exposure paths such as
+      tool output and model context are outside its focus.
+    check_ids: [MCPXW-001, MCPXW-002]
+  - framework: nist-800-53r5
+    control_id: SC-28
+    relationship: intersects_with
+    confidence: low
+    rationale: >-
+      MCP client config files store server credentials at rest on developer endpoints; protecting the
+      confidentiality of that stored information addresses part of the secret-exposure need.
+    check_ids: [MCPXW-001, MCPXW-002]
+  - framework: nist-800-53r5
+    control_id: AC-3
+    relationship: intersects_with
+    confidence: low
+    rationale: >-
+      Enforcing access authorizations on MCP config files and secret stores limits who and which local
+      processes can read stored tokens; it reduces impact but does not remove the plaintext secret.
+    check_ids: []
+  - framework: nist-csf-2.0
+    control_id: PR.AA-01
+    relationship: intersects_with
+    confidence: high
+    rationale: >-
+      Credentials issued to MCP servers are service credentials the organization must manage; tokens
+      pasted into client config files are typically unmanaged, long-lived, and untracked.
+    check_ids: [MCPXW-001, MCPXW-002]
+  - framework: nist-csf-2.0
+    control_id: PR.DS-01
+    relationship: intersects_with
+    confidence: low
+    rationale: >-
+      Plaintext secrets in MCP config files are sensitive data at rest whose confidentiality must be
+      protected; the subcategory also covers integrity and availability beyond this need.
+    check_ids: [MCPXW-001, MCPXW-002]

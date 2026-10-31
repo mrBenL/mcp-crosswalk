@@ -1,0 +1,35 @@
+# SYNTHETIC TEST-ONLY crosswalk file for the new MCP12 risk in the 2099-test catalog.
+risk_id: MCP12
+catalog_version: 2099-test
+review_status: draft
+mappings:
+  - framework: nist-800-53r5
+    control_id: CM-8
+    relationship: intersects_with
+    confidence: low
+    rationale: Synthetic test mapping for the MCP12 risk that exists only in the test catalog.
+    check_ids: []
+  - framework: nist-800-53r5
+    control_id: CM-7
+    relationship: intersects_with
+    confidence: low
+    rationale: Synthetic test mapping for the MCP12 risk that exists only in the test catalog.
+    check_ids: []
+  - framework: nist-800-53r5
+    control_id: RA-3
+    relationship: intersects_with
+    confidence: low
+    rationale: Synthetic test mapping for the MCP12 risk that exists only in the test catalog.
+    check_ids: []
+  - framework: nist-csf-2.0
+    control_id: ID.AM-02
+    relationship: intersects_with
+    confidence: low
+    rationale: Synthetic test mapping for the MCP12 risk that exists only in the test catalog.
+    check_ids: []
+  - framework: nist-csf-2.0
+    control_id: ID.RA-01
+    relationship: intersects_with
+    confidence: low
+    rationale: Synthetic test mapping for the MCP12 risk that exists only in the test catalog.
+    check_ids: []

@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "=HYPERLINK(\"http://x\",\"y\")": {"url": "http://a.example.com/mcp"},
+    "+SUM(1,2)": {"url": "http://b.example.com/mcp"},
+    "-2+3": {"url": "http://c.example.com/mcp"},
+    "@SUM(A1)": {"url": "http://d.example.com/mcp"},
+    "\tTAB": {"url": "http://e.example.com/mcp"},
+    "\rCR": {"url": "http://f.example.com/mcp"},
+    "plain, \"quoted\"\nmultiline": {"url": "http://g.example.com/mcp"}
+  }
+}

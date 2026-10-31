@@ -1,0 +1,76 @@
+{
+  "$defs": {
+    "CatalogVersion": {
+      "additionalProperties": false,
+      "properties": {
+        "crosswalk": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Crosswalk directory relative to the data root, or null if not authored yet",
+          "title": "Crosswalk"
+        },
+        "file": {
+          "description": "Catalog file name in catalog/owasp-mcp/",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*\\.yaml$",
+          "title": "File",
+          "type": "string"
+        },
+        "id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$",
+          "title": "Id",
+          "type": "string"
+        },
+        "retrieved": {
+          "title": "Retrieved",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "beta",
+            "final",
+            "test"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "file",
+        "status",
+        "retrieved"
+      ],
+      "title": "CatalogVersion",
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "``catalog/owasp-mcp/versions.yaml``: the available OWASP catalog versions.",
+  "properties": {
+    "default": {
+      "title": "Default",
+      "type": "string"
+    },
+    "versions": {
+      "items": {
+        "$ref": "#/$defs/CatalogVersion"
+      },
+      "title": "Versions",
+      "type": "array"
+    }
+  },
+  "required": [
+    "default",
+    "versions"
+  ],
+  "title": "mcp-crosswalk OWASP catalog versions",
+  "type": "object"
+}

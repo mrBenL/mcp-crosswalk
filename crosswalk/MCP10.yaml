@@ -1,0 +1,62 @@
+# MCP10:2025 Context Injection & Over-Sharing (OWASP MCP Top 10, CC BY-NC-SA 4.0; ID and title only)
+# Mapping content: original to mcp-crosswalk, CC BY 4.0. Reviewed by the maintainer.
+risk_id: MCP10
+catalog_version: 2025-beta
+review_status: reviewed
+mappings:
+  - framework: nist-800-53r5
+    control_id: AC-4
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      Controlling which data may flow from MCP tools into the shared model context, and from there into other
+      tools, is information flow enforcement between connected components.
+    check_ids: []
+  - framework: nist-800-53r5
+    control_id: AC-6
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      A filesystem MCP server scoped to / or the home directory can pull far more data into context than the
+      task needs; least privilege limits what can be over-shared.
+    check_ids: [MCPXW-006]
+  - framework: nist-800-53r5
+    control_id: SC-4
+    relationship: intersects_with
+    confidence: low
+    rationale: >-
+      By analogy, the model context and any persistent memory shared across MCP sessions, tools, or users
+      act as a shared resource; SC-4 targets residual data in such resources, so the fit is indirect.
+    check_ids: []
+  - framework: nist-800-53r5
+    control_id: AC-21
+    relationship: intersects_with
+    confidence: low
+    rationale: >-
+      Before data reaches a third-party MCP server, users or automated mechanisms should confirm that the
+      recipient is authorized for that data; this applies only to deliberate sharing decisions.
+    check_ids: []
+  - framework: nist-csf-2.0
+    control_id: PR.DS-10
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      Data placed into the model context by MCP tools is data in use; protecting its confidentiality means
+      limiting what enters context and who or what can read it back.
+    check_ids: []
+  - framework: nist-csf-2.0
+    control_id: PR.AA-05
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      Least-privilege entitlements for MCP servers, such as narrow filesystem roots, bound the data that can
+      be over-shared into context.
+    check_ids: [MCPXW-006]
+  - framework: nist-csf-2.0
+    control_id: PR.DS-01
+    relationship: intersects_with
+    confidence: low
+    rationale: >-
+      Data at rest on the endpoint becomes exposed when an over-broad MCP filesystem server can read it into
+      the model context.
+    check_ids: [MCPXW-006]

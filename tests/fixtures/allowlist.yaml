@@ -1,0 +1,4 @@
+# Example allowlist: server names, package names, or URL prefixes.
+- github
+- "@modelcontextprotocol/server-filesystem"
+- https://docs.example.com/

@@ -1,0 +1,12 @@
+{
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {"driver": {"name": "synthetic-scanner-d", "rules": [{"id": "D-1", "name": "LongLine"}]}},
+      "results": [
+        {"ruleId": "D-1", "ruleIndex": 0, "message": {"text": "Line too long"}},
+        {"ruleId": "D-1", "message": {"text": "Version 1.2.3 of mcp-server-fetch"}, "properties": {"tags": ["style"]}}
+      ]
+    }
+  ]
+}

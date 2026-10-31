@@ -1,0 +1,101 @@
+# OWASP MCP Top 10 (2025, beta): identifiers and titles, with original summaries.
+# Risk IDs and titles: OWASP MCP Top 10 project, CC BY-NC-SA 4.0, used for reference and attribution only.
+# Summaries: original text written for mcp-crosswalk, CC BY 4.0 (see LICENSE-DATA.md).
+version: "2025-beta"
+retrieved: "2026-10-07"
+source_url: "https://owasp.org/www-project-mcp-top-10/"
+license_note: >-
+  Risk IDs and titles are from the OWASP MCP Top 10 (https://owasp.org/www-project-mcp-top-10/),
+  licensed CC BY-NC-SA 4.0, and are referenced with attribution only. The summaries below are
+  original to mcp-crosswalk and do not reproduce OWASP text. Not affiliated with or endorsed by OWASP.
+risks:
+  - id: "MCP01:2025"
+    short_id: MCP01
+    title: "Token Mismanagement & Secret Exposure"
+    aliases: []
+    summary: >-
+      Credentials that MCP servers need, such as API tokens and passwords, end up stored in plaintext
+      config files, command-line arguments, logs, or model context where they can be read or leaked.
+      Long-lived, over-scoped tokens make any exposure more damaging.
+    source_url: "https://owasp.org/www-project-mcp-top-10/"
+  - id: "MCP02:2025"
+    short_id: MCP02
+    title: "Privilege Escalation via Scope Creep"
+    aliases: []
+    summary: >-
+      MCP servers are granted, or gradually accumulate, more access than their task needs, such as
+      whole-disk filesystem access or broad API scopes. An agent misled into misusing a tool then
+      acts with all of that excess privilege.
+    source_url: "https://owasp.org/www-project-mcp-top-10/"
+  - id: "MCP03:2025"
+    short_id: MCP03
+    title: "Tool Poisoning"
+    aliases: []
+    summary: >-
+      Tool names, descriptions, or schemas published by an MCP server carry hidden instructions or
+      misleading content that steer the model into unintended actions. Because the model trusts tool
+      metadata, a poisoned or later-altered definition can redirect behavior without the user noticing.
+    source_url: "https://owasp.org/www-project-mcp-top-10/"
+  - id: "MCP04:2025"
+    short_id: MCP04
+    title: "Software Supply Chain Attacks & Dependency Tampering"
+    aliases: []
+    summary: >-
+      MCP servers are often fetched and run straight from public package registries or container
+      images at launch time, frequently without a pinned version or integrity check. A compromised,
+      typosquatted, or silently updated package then runs with the client's privileges.
+    source_url: "https://owasp.org/www-project-mcp-top-10/"
+  - id: "MCP05:2025"
+    short_id: MCP05
+    title: "Command Injection & Execution"
+    aliases: []
+    summary: >-
+      An MCP server or its launch configuration passes untrusted input into shell commands,
+      interpreters, or system calls, allowing arbitrary code to run on the host. Servers launched
+      through a shell with inline scripts widen this exposure.
+    source_url: "https://owasp.org/www-project-mcp-top-10/"
+  - id: "MCP06:2025"
+    short_id: MCP06
+    title: "Prompt Injection via Contextual Payloads"
+    aliases: ["Intent Flow Subversion"]
+    summary: >-
+      Content returned by MCP tools or resources, such as web pages, files, or tickets, contains
+      instructions that the model treats as commands. The agent's intended task is subverted and it
+      may misuse other connected tools or leak data.
+    source_url: "https://owasp.org/www-project-mcp-top-10/"
+  - id: "MCP07:2025"
+    short_id: MCP07
+    title: "Insufficient Authentication & Authorization"
+    aliases: []
+    summary: >-
+      MCP servers, especially remote ones, accept connections or tool calls without properly
+      verifying who is calling or what they may do. Weak or missing authentication and cleartext
+      transport let unauthorized parties invoke tools or intercept sessions.
+    source_url: "https://owasp.org/www-project-mcp-top-10/"
+  - id: "MCP08:2025"
+    short_id: MCP08
+    title: "Lack of Audit and Telemetry"
+    aliases: []
+    summary: >-
+      Tool invocations, their arguments, and their results are not logged or monitored, so misuse
+      by an agent or attacker goes unnoticed. Without records, incidents cannot be detected,
+      investigated, or attributed.
+    source_url: "https://owasp.org/www-project-mcp-top-10/"
+  - id: "MCP09:2025"
+    short_id: MCP09
+    title: "Shadow MCP Servers"
+    aliases: []
+    summary: >-
+      Users or teams add MCP servers to their clients without review or approval, outside the
+      organization's inventory. These unvetted servers bypass security controls and are invisible
+      to the people responsible for managing risk.
+    source_url: "https://owasp.org/www-project-mcp-top-10/"
+  - id: "MCP10:2025"
+    short_id: MCP10
+    title: "Context Injection & Over-Sharing"
+    aliases: []
+    summary: >-
+      Sensitive data flows into the model's context or across tool and session boundaries more
+      broadly than needed, where other tools, users, or prompts can reach it. Shared or persistent
+      context turns one over-broad data source into an exposure path.
+    source_url: "https://owasp.org/www-project-mcp-top-10/"

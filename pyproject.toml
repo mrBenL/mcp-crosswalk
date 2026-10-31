@@ -1,0 +1,105 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mcp-crosswalk"
+dynamic = ["version"]
+description = "Crosswalk from the OWASP MCP Top 10 to NIST SP 800-53 Rev 5 and CSF 2.0, plus an offline static scanner for MCP client configs."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+license-files = ["LICENSE", "LICENSE-DATA.md", "NOTICE"]
+authors = [{ name = "Ben Luthy" }]
+keywords = ["mcp", "model-context-protocol", "grc", "nist", "800-53", "csf", "owasp", "security"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+    "Topic :: Security",
+]
+dependencies = [
+    "typer>=0.12",
+    "pydantic>=2.7",
+    "pyyaml>=6.0.1",
+    "jinja2>=3.1.6",
+]
+
+[project.scripts]
+mcpxw = "mcp_crosswalk.cli:app"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "ruff>=0.6",
+    "mypy>=1.11",
+    "types-PyYAML>=6.0",
+    "jsonschema>=4.22",
+    "pip-audit>=2.7",
+]
+
+[tool.hatch.version]
+path = "src/mcp_crosswalk/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mcp_crosswalk"]
+
+# Ship the crosswalk data, catalogs, and schemas inside the package so the installed
+# tool finds them through importlib.resources (see mcp_crosswalk/resources.py).
+[tool.hatch.build.targets.wheel.force-include]
+"crosswalk" = "mcp_crosswalk/data/crosswalk"
+"catalog" = "mcp_crosswalk/data/catalog"
+"schema" = "mcp_crosswalk/data/schema"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "src/",
+    "crosswalk/",
+    "catalog/",
+    "schema/",
+    "docs/",
+    "tests/",
+    "scripts/",
+    "README.md",
+    "LICENSE",
+    "LICENSE-DATA.md",
+    "NOTICE",
+    "CHANGELOG.md",
+    "SECURITY.md",
+    "CONTRIBUTING.md",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = [".cache"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S", "SIM", "RUF"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101"]
+
+[tool.mypy]
+strict = true
+files = ["src"]
+plugins = ["pydantic.mypy"]
+python_version = "3.11"
+
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.coverage.run]
+source = ["mcp_crosswalk"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true

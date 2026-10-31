@@ -1,0 +1,70 @@
+# MCP05:2025 Command Injection & Execution (OWASP MCP Top 10, CC BY-NC-SA 4.0; ID and title only)
+# Mapping content: original to mcp-crosswalk, CC BY 4.0. Reviewed by the maintainer.
+risk_id: MCP05
+catalog_version: 2025-beta
+review_status: reviewed
+mappings:
+  - framework: nist-800-53r5
+    control_id: SI-10
+    relationship: intersects_with
+    confidence: high
+    rationale: >-
+      MCP servers that forward tool arguments chosen by the model into shell commands or interpreters must
+      validate those inputs; this is the core server-side mitigation for command injection.
+    check_ids: []
+  - framework: nist-800-53r5
+    control_id: CM-7
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      Launching an MCP server as a shell with an inline -c script gives the stdio command general-purpose
+      execution capability; least functionality restricts launchers to the specific server binary.
+    check_ids: [MCPXW-005]
+  - framework: nist-800-53r5
+    control_id: CM-7(6)
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      Running MCP servers in confined environments with limited privileges contains the damage of a
+      successful injection; privileged container launch flags remove that containment.
+    check_ids: [MCPXW-010]
+  - framework: nist-800-53r5
+    control_id: SC-39
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      A separate execution domain for each MCP server process limits what injected commands can reach;
+      container options such as --pid=host or --privileged break that isolation.
+    check_ids: [MCPXW-010]
+  - framework: nist-800-53r5
+    control_id: AC-6
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      Injected commands run with the MCP server's privileges, so least privilege for the server process and
+      its container bounds the impact of command execution.
+    check_ids: [MCPXW-010]
+  - framework: nist-csf-2.0
+    control_id: PR.PS-05
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      Preventing execution of unauthorized software covers arbitrary scripts run through a shell-based MCP
+      server launch or through injected commands.
+    check_ids: [MCPXW-005]
+  - framework: nist-csf-2.0
+    control_id: PR.PS-06
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      Secure development practices for MCP servers, such as avoiding shell invocation and validating tool
+      arguments, prevent injection flaws at the source.
+    check_ids: []
+  - framework: nist-csf-2.0
+    control_id: PR.IR-01
+    relationship: intersects_with
+    confidence: low
+    rationale: >-
+      Protecting the host environment from unauthorized logical use limits what an MCP server compromised
+      through command injection can reach, for example via host networking or the Docker socket.
+    check_ids: [MCPXW-010]

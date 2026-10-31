@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "github": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-github@2025.4.8"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+      }
+    },
+    "sentry": {
+      "type": "http",
+      "url": "https://mcp.sentry.example.com/mcp",
+      "headers": {
+        "Authorization": "Bearer ${SENTRY_TOKEN}"
+      }
+    }
+  }
+}

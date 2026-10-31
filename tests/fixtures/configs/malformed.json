@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "broken": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-memory@2025.8.4"
+    }
+  }

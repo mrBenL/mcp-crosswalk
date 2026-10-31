@@ -1,0 +1,70 @@
+# MCP07:2025 Insufficient Authentication & Authorization (OWASP MCP Top 10, CC BY-NC-SA 4.0; ID and title only)
+# Mapping content: original to mcp-crosswalk, CC BY 4.0. Reviewed by the maintainer.
+risk_id: MCP07
+catalog_version: 2025-beta
+review_status: reviewed
+mappings:
+  - framework: nist-800-53r5
+    control_id: IA-9
+    relationship: intersects_with
+    confidence: high
+    rationale: >-
+      Remote MCP servers are services that clients connect to over HTTP or SSE; the client should
+      authenticate the server (for example through TLS server identity) before tool calls are exchanged.
+    check_ids: [MCPXW-007, MCPXW-011]
+  - framework: nist-800-53r5
+    control_id: SC-8(1)
+    relationship: intersects_with
+    confidence: high
+    rationale: >-
+      A remote MCP transport over cleartext http:// exposes bearer tokens, tool arguments, and results in
+      transit; TLS protects them but does not by itself authenticate or authorize callers.
+    check_ids: [MCPXW-007, MCPXW-011]
+  - framework: nist-800-53r5
+    control_id: IA-2
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      Organizational users invoking tools on a remote MCP server should be uniquely authenticated, for
+      example through OAuth, so tool calls are tied to an accountable identity.
+    check_ids: [MCPXW-008]
+  - framework: nist-800-53r5
+    control_id: SC-23
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      MCP streamable HTTP and SSE transports rely on session identifiers; over cleartext these can be
+      captured and replayed, so session authenticity protection applies.
+    check_ids: [MCPXW-007, MCPXW-011]
+  - framework: nist-800-53r5
+    control_id: AC-3
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      Authenticating the caller is not enough; the MCP server must also enforce which tools and resources
+      each caller is authorized to use.
+    check_ids: []
+  - framework: nist-800-53r5
+    control_id: AC-17
+    relationship: intersects_with
+    confidence: low
+    rationale: >-
+      When an organization exposes an internal MCP server to remote clients, usage restrictions and
+      authorization for that remote access apply; it does not cover third-party servers.
+    check_ids: []
+  - framework: nist-csf-2.0
+    control_id: PR.AA-03
+    relationship: intersects_with
+    confidence: high
+    rationale: >-
+      Users and services connecting to remote MCP servers, and the servers themselves, should be
+      authenticated; a remote entry with no auth header is an item to verify against this outcome.
+    check_ids: [MCPXW-008]
+  - framework: nist-csf-2.0
+    control_id: PR.DS-02
+    relationship: intersects_with
+    confidence: high
+    rationale: >-
+      Credentials, tool arguments, and results sent to a remote MCP server over plain HTTP are unprotected
+      data in transit.
+    check_ids: [MCPXW-007, MCPXW-011]

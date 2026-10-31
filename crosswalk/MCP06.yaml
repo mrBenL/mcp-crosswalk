@@ -1,0 +1,64 @@
+# MCP06:2025 Prompt Injection via Contextual Payloads (OWASP MCP Top 10, CC BY-NC-SA 4.0; ID and title only)
+# Mapping content: original to mcp-crosswalk, CC BY 4.0. Reviewed by the maintainer.
+# Not assessed by the static scanner: payloads arrive in tool results at runtime.
+risk_id: MCP06
+catalog_version: 2025-beta
+review_status: reviewed
+mappings:
+  - framework: nist-800-53r5
+    control_id: SI-10
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      Content returned by MCP tools and resources enters the model as input; validating or marking it as
+      untrusted data reduces, but cannot fully prevent, instructions hidden in that content.
+    check_ids: []
+  - framework: nist-800-53r5
+    control_id: AC-4
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      Enforcing information flow policy between MCP servers, for example blocking data read by one tool from
+      flowing into another tool's outbound call, limits what an injected instruction can accomplish.
+    check_ids: []
+  - framework: nist-800-53r5
+    control_id: AC-4(8)
+    relationship: intersects_with
+    confidence: low
+    rationale: >-
+      Policy filters on MCP tool results, such as stripping or quarantining instruction-like content before
+      it reaches the model, are one specific flow-control technique for this need.
+    check_ids: []
+  - framework: nist-800-53r5
+    control_id: SI-15
+    relationship: intersects_with
+    confidence: low
+    rationale: >-
+      Where the organization operates the MCP server, validating that tool output matches the expected
+      content type and shape catches some contextual payloads; for third-party servers the client-side
+      counterpart is SI-10.
+    check_ids: []
+  - framework: nist-800-53r5
+    control_id: SI-4
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      Monitoring MCP tool call sequences for attack indicators, such as an unexpected outbound request right
+      after reading untrusted content, detects injection that preventive controls missed.
+    check_ids: []
+  - framework: nist-csf-2.0
+    control_id: DE.CM-09
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      Monitoring agent runtime behavior and the data flowing through MCP tools helps find adverse events
+      caused by injected instructions.
+    check_ids: []
+  - framework: nist-csf-2.0
+    control_id: PR.DS-10
+    relationship: intersects_with
+    confidence: low
+    rationale: >-
+      The model context is data in use; injected instructions can cause the agent to disclose or alter that
+      data through other MCP tools.
+    check_ids: []

@@ -1,0 +1,13 @@
+# SYNTHETIC TEST-ONLY versions file used by tests/test_versions.py.
+default: 2025-beta
+versions:
+  - id: 2025-beta
+    file: 2025-beta.yaml
+    status: beta
+    retrieved: "2026-10-07"
+    crosswalk: crosswalk
+  - id: 2099-test
+    file: 2099-test.yaml
+    status: test
+    retrieved: "2099-01-01"
+    crosswalk: crosswalk-2099-test

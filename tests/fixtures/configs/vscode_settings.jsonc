@@ -1,0 +1,24 @@
+// VS Code user settings.json with MCP servers in the nested "mcp" shape.
+// Copied by tests to <home>/.config/Code/User/settings.json.
+{
+  "editor.fontSize": 14,
+  "http.proxy": "http://UNRELATED_PROXY_MARKER.example.com:3128", // not an MCP setting
+  "workbench.colorTheme": "UNRELATED_THEME_MARKER",
+  /* MCP configuration */
+  "mcp": {
+    "inputs": [
+      {"type": "promptString", "id": "gh-token", "description": "GitHub token", "password": true},
+    ],
+    "servers": {
+      "github": {
+        "command": "npx",
+        "args": ["@modelcontextprotocol/server-github@1.2.3"],
+        "env": {"GITHUB_PERSONAL_ACCESS_TOKEN": "${input:gh-token}"},
+      },
+      "remote-docs": {
+        "type": "http",
+        "url": "http://docs.internal.example.com/mcp", // cleartext on purpose
+      },
+    },
+  },
+}

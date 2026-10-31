@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-filesystem@2025.8.21", "/Users/alex/projects/demo"]
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-memory@2025.8.4"]
+    }
+  },
+  "globalShortcut": "Ctrl+Space"
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "synthetic-scanner-a",
+          "version": "1.0.0",
+          "informationUri": "https://example.invalid/never-fetched",
+          "rules": [
+            {"id": "MCP01", "name": "HardcodedToken", "shortDescription": {"text": "Token in config"}},
+            {"id": "GENERIC-1", "name": "Other", "shortDescription": {"text": "Unrelated rule"}}
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "MCP01",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {"text": "Token found in config"},
+          "locations": [{"physicalLocation": {"artifactLocation": {"uri": "file:///tmp/never-read.json"}, "region": {"startLine": 3}}}],
+          "properties": {"tags": ["security", "nist-800-53r5/IA-5"], "score": 7.5}
+        },
+        {
+          "ruleId": "GENERIC-1",
+          "ruleIndex": 1,
+          "level": "note",
+          "message": {"text": "Nothing MCP-related here: MCP011, XMCP01, mcp-1.0.1, MCP_01 and MCP 01 are not IDs"}
+        }
+      ]
+    }
+  ]
+}

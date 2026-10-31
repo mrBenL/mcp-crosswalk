@@ -1,0 +1,24 @@
+{
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "synthetic-scanner-b",
+          "rules": [
+            {
+              "id": "B-100",
+              "name": "UnpinnedPackage",
+              "shortDescription": {"text": "Package launched without a version"},
+              "properties": {"tags": ["supply-chain", "owasp-mcp-top-10/mcp04"]}
+            }
+          ]
+        }
+      },
+      "results": [
+        {"ruleId": "B-100", "message": {"text": "npx launches an unpinned package"}},
+        {"ruleIndex": 0, "message": {"text": "matched by index only"}}
+      ]
+    }
+  ]
+}

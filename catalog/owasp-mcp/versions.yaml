@@ -1,0 +1,19 @@
+# OWASP MCP Top 10 catalog versions known to mcp-crosswalk.
+#
+# - id:        version identifier; must equal the `version` field inside the catalog file
+# - file:      catalog file in this directory
+# - status:    beta | final | test
+# - retrieved: date the list was confirmed against the OWASP page
+# - crosswalk: directory (relative to the data root) holding the crosswalk files authored for this
+#              version, or null when none has been authored yet (see `mcpxw crosswalk migrate`)
+#
+# Migrations between versions live in migrations/<from>__to__<to>.yaml (schema/migration.schema.json).
+# Scanner checks are written against the default version's risk IDs; other versions translate them
+# through the migration from the default version.
+default: 2025-beta
+versions:
+  - id: 2025-beta
+    file: 2025-beta.yaml
+    status: beta
+    retrieved: "2026-10-07"
+    crosswalk: crosswalk

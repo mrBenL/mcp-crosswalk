@@ -1,0 +1,462 @@
+{
+  "catalog": {
+    "frameworks": [
+      {
+        "id": "nist-800-53r5",
+        "source_sha256": "01f37cf90ea99d92242c936cbfbdebcc338eef1f71454e2acac36cc56e9bc062"
+      },
+      {
+        "id": "nist-csf-2.0",
+        "source_sha256": "4836943f21d393f2821df85ada4e6f3c0617243b4ddf44263fe68205400210b4"
+      }
+    ],
+    "owasp_version": "2025-beta"
+  },
+  "coverage": [
+    {
+      "check_ids": [
+        "MCPXW-001",
+        "MCPXW-002"
+      ],
+      "findings": 0,
+      "risk_id": "MCP01",
+      "status": "Assessed (static)",
+      "title": "Token Mismanagement & Secret Exposure"
+    },
+    {
+      "check_ids": [
+        "MCPXW-006",
+        "MCPXW-010"
+      ],
+      "findings": 1,
+      "risk_id": "MCP02",
+      "status": "Assessed (static)",
+      "title": "Privilege Escalation via Scope Creep"
+    },
+    {
+      "check_ids": [],
+      "findings": 0,
+      "risk_id": "MCP03",
+      "status": "Not assessed (requires active analysis)",
+      "title": "Tool Poisoning"
+    },
+    {
+      "check_ids": [
+        "MCPXW-003",
+        "MCPXW-004"
+      ],
+      "findings": 0,
+      "risk_id": "MCP04",
+      "status": "Assessed (static)",
+      "title": "Software Supply Chain Attacks & Dependency Tampering"
+    },
+    {
+      "check_ids": [
+        "MCPXW-005",
+        "MCPXW-010"
+      ],
+      "findings": 0,
+      "risk_id": "MCP05",
+      "status": "Assessed (static)",
+      "title": "Command Injection & Execution"
+    },
+    {
+      "check_ids": [],
+      "findings": 0,
+      "risk_id": "MCP06",
+      "status": "Not assessed (requires active analysis)",
+      "title": "Prompt Injection via Contextual Payloads"
+    },
+    {
+      "check_ids": [
+        "MCPXW-007",
+        "MCPXW-008",
+        "MCPXW-011"
+      ],
+      "findings": 2,
+      "risk_id": "MCP07",
+      "status": "Assessed (static)",
+      "title": "Insufficient Authentication & Authorization"
+    },
+    {
+      "check_ids": [],
+      "findings": 0,
+      "risk_id": "MCP08",
+      "status": "Not assessed (requires active analysis)",
+      "title": "Lack of Audit and Telemetry"
+    },
+    {
+      "check_ids": [
+        "MCPXW-009"
+      ],
+      "findings": 0,
+      "risk_id": "MCP09",
+      "status": "Not assessed (no allowlist provided; review the server inventory)",
+      "title": "Shadow MCP Servers"
+    },
+    {
+      "check_ids": [
+        "MCPXW-006"
+      ],
+      "findings": 1,
+      "risk_id": "MCP10",
+      "status": "Assessed (static)",
+      "title": "Context Injection & Over-Sharing"
+    }
+  ],
+  "coverage_note": "Assessed (static) means at least one configuration-indicator check ran for the risk; it is not a complete assessment of the risk.",
+  "disclaimer": "Findings are indicators relevant to the listed controls. They are not a compliance determination. Mappings are maintainer-reviewed and not endorsed by OWASP or NIST.",
+  "findings": [
+    {
+      "check_id": "MCPXW-007",
+      "client": "generic",
+      "controls": [
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "IA-9",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP07",
+          "sp800_171r3_derived": [],
+          "title": "Service Identification and Authentication"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "medium",
+          "control_id": "SC-23",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP07",
+          "sp800_171r3_derived": [
+            "03.13.15"
+          ],
+          "title": "Session Authenticity"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "SC-8(1)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP07",
+          "sp800_171r3_derived": [
+            "03.13.08"
+          ],
+          "title": "Transmission Confidentiality and Integrity | Cryptographic Protection"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "PR.DS-02",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP07",
+          "sp800_171r3_derived": [],
+          "title": "The confidentiality, integrity, and availability of data-in-transit are protected"
+        }
+      ],
+      "evidence": "url http://evil.example.com/sse?x=<b>bold</b> uses cleartext HTTP to host evil.example.com",
+      "id": "<FINDING_ID>",
+      "project": null,
+      "remediation": "Use an https:// endpoint with a valid certificate. If the server cannot offer TLS, reach it only through an encrypted tunnel or a local TLS-terminating proxy on a loopback address.",
+      "risk_ids": [
+        "MCP07"
+      ],
+      "server": "evil&amp;\"quote'",
+      "severity": "high",
+      "source_path": "<TMP>/hostile.json",
+      "title": "Remote server over cleartext HTTP"
+    },
+    {
+      "check_id": "MCPXW-006",
+      "client": "generic",
+      "controls": [
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "medium",
+          "control_id": "AC-3",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP02",
+          "sp800_171r3_derived": [
+            "03.01.02"
+          ],
+          "title": "Access Enforcement"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "high",
+          "control_id": "AC-6",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP02",
+          "sp800_171r3_derived": [
+            "03.01.05"
+          ],
+          "title": "Least Privilege"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "low",
+          "control_id": "AC-6(1)",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP02",
+          "sp800_171r3_derived": [
+            "03.01.05"
+          ],
+          "title": "Least Privilege | Authorize Access to Security Functions"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "PR.AA-05",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP02",
+          "sp800_171r3_derived": [],
+          "title": "Access permissions, entitlements, and authorizations are defined in a policy, managed, enforced, and reviewed, and incorporate the principles of least privilege and separation of duties"
+        },
+        {
+          "baselines": [
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "medium",
+          "control_id": "AC-6",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP10",
+          "sp800_171r3_derived": [
+            "03.01.05"
+          ],
+          "title": "Least Privilege"
+        },
+        {
+          "baselines": [],
+          "confidence": "medium",
+          "control_id": "PR.AA-05",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP10",
+          "sp800_171r3_derived": [],
+          "title": "Access permissions, entitlements, and authorizations are defined in a policy, managed, enforced, and reviewed, and incorporate the principles of least privilege and separation of duties"
+        },
+        {
+          "baselines": [],
+          "confidence": "low",
+          "control_id": "PR.DS-01",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP10",
+          "sp800_171r3_derived": [],
+          "title": "The confidentiality, integrity, and availability of data-at-rest are protected"
+        }
+      ],
+      "evidence": "args[1] = / (server granted a root or home path)",
+      "id": "<FINDING_ID>",
+      "project": null,
+      "remediation": "Scope the server to the specific project directories it needs, preferably read-only, and keep credential directories (~/.ssh, ~/.aws, ~/.config) outside every allowed root.",
+      "risk_ids": [
+        "MCP02",
+        "MCP10"
+      ],
+      "server": "<script>alert(1)</script>",
+      "severity": "medium",
+      "source_path": "<TMP>/hostile.json",
+      "title": "Over-broad filesystem scope"
+    },
+    {
+      "check_id": "MCPXW-008",
+      "client": "generic",
+      "controls": [
+        {
+          "baselines": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ],
+          "confidence": "medium",
+          "control_id": "IA-2",
+          "framework": "nist-800-53r5",
+          "relationship": "intersects_with",
+          "risk_id": "MCP07",
+          "sp800_171r3_derived": [
+            "03.05.01"
+          ],
+          "title": "Identification and Authentication (Organizational Users)"
+        },
+        {
+          "baselines": [],
+          "confidence": "high",
+          "control_id": "PR.AA-03",
+          "framework": "nist-csf-2.0",
+          "relationship": "intersects_with",
+          "risk_id": "MCP07",
+          "sp800_171r3_derived": [],
+          "title": "Users, services, and hardware are authenticated"
+        }
+      ],
+      "evidence": "url http://evil.example.com/sse?x=<b>bold</b> has no static auth header; verify whether OAuth is negotiated at runtime",
+      "id": "<FINDING_ID>",
+      "project": null,
+      "remediation": "Confirm how the server authenticates callers. Prefer OAuth via the client's built-in support, or a header that references a secret (for example 'Bearer ${env:TOKEN}'). Do not connect to remote MCP servers that accept unauthenticated tool calls.",
+      "risk_ids": [
+        "MCP07"
+      ],
+      "server": "evil&amp;\"quote'",
+      "severity": "low",
+      "source_path": "<TMP>/hostile.json",
+      "title": "Remote server with no static auth header (verify)"
+    }
+  ],
+  "generated_at": "<GENERATED_AT>",
+  "inputs": [
+    {
+      "client": "generic",
+      "error": null,
+      "path": "<TMP>/hostile.json",
+      "servers": 5,
+      "status": "ok"
+    }
+  ],
+  "schema_version": "1.1",
+  "servers": [
+    {
+      "args": [
+        "\"><script>alert(3)</script>",
+        "/"
+      ],
+      "client": "generic",
+      "command": "<img src=x onerror=alert(2)>",
+      "env": {
+        "NOTE": "[REDACTED len=35 sha256=888e33ab]"
+      },
+      "headers": {},
+      "name": "<script>alert(1)</script>",
+      "project": null,
+      "raw_keys": [
+        "args",
+        "command",
+        "env"
+      ],
+      "scope": "unknown",
+      "source_path": "<TMP>/hostile.json",
+      "transport": "stdio",
+      "url": null
+    },
+    {
+      "args": [
+        "single-arg.js"
+      ],
+      "client": "generic",
+      "command": "node",
+      "env": {},
+      "headers": {},
+      "name": "args-string",
+      "project": null,
+      "raw_keys": [
+        "args",
+        "command"
+      ],
+      "scope": "unknown",
+      "source_path": "<TMP>/hostile.json",
+      "transport": "stdio",
+      "url": null
+    },
+    {
+      "args": [],
+      "client": "generic",
+      "command": null,
+      "env": {},
+      "headers": {
+        "X-Note": "[REDACTED len=33 sha256=683db317]"
+      },
+      "name": "evil&amp;\"quote'",
+      "project": null,
+      "raw_keys": [
+        "headers",
+        "url"
+      ],
+      "scope": "unknown",
+      "source_path": "<TMP>/hostile.json",
+      "transport": "sse",
+      "url": "http://evil.example.com/sse?x=<b>bold</b>"
+    },
+    {
+      "args": [
+        "1",
+        "true",
+        "",
+        "{\"k\": \"v\"}"
+      ],
+      "client": "generic",
+      "command": "42",
+      "env": {
+        "N": "[REDACTED len=1 sha256=6b86b273]"
+      },
+      "headers": {},
+      "name": "numbers",
+      "project": null,
+      "raw_keys": [
+        "args",
+        "command",
+        "env"
+      ],
+      "scope": "unknown",
+      "source_path": "<TMP>/hostile.json",
+      "transport": "stdio",
+      "url": null
+    },
+    {
+      "args": [
+        "server.js",
+        "[link](javascript:alert(5))"
+      ],
+      "client": "generic",
+      "command": "node",
+      "env": {},
+      "headers": {},
+      "name": "unicode-\u202e-rtl",
+      "project": null,
+      "raw_keys": [
+        "args",
+        "command"
+      ],
+      "scope": "unknown",
+      "source_path": "<TMP>/hostile.json",
+      "transport": "stdio",
+      "url": null
+    }
+  ],
+  "summary": {
+    "by_severity": {
+      "high": 1,
+      "low": 1,
+      "medium": 1
+    },
+    "total_findings": 3,
+    "total_servers": 5
+  },
+  "tool": {
+    "name": "mcp-crosswalk",
+    "version": "<VERSION>"
+  }
+}

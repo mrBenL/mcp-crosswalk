@@ -1,0 +1,72 @@
+# MCP08:2025 Lack of Audit and Telemetry (OWASP MCP Top 10, CC BY-NC-SA 4.0; ID and title only)
+# Mapping content: original to mcp-crosswalk, CC BY 4.0. Reviewed by the maintainer.
+# Not assessed by the static scanner: client configs do not show whether tool calls are logged.
+risk_id: MCP08
+catalog_version: 2025-beta
+review_status: reviewed
+mappings:
+  - framework: nist-800-53r5
+    control_id: AU-2
+    relationship: intersects_with
+    confidence: high
+    rationale: >-
+      Organizations must decide which MCP events are logged, such as server connections, tool invocations,
+      arguments, results, and approval prompts; without that selection tool use leaves no trail.
+    check_ids: []
+  - framework: nist-800-53r5
+    control_id: AU-12
+    relationship: intersects_with
+    confidence: high
+    rationale: >-
+      MCP clients, gateways, or servers need the capability to generate audit records for tool calls; many
+      MCP deployments generate none by default.
+    check_ids: []
+  - framework: nist-800-53r5
+    control_id: AU-3
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      Useful MCP audit records name the server, tool, arguments, outcome, time, and the user or agent on whose
+      behalf the call was made.
+    check_ids: []
+  - framework: nist-800-53r5
+    control_id: AU-6
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      MCP tool call records only help if someone reviews them for inappropriate or unusual activity, such
+      as an agent reading secrets then calling an outbound tool.
+    check_ids: []
+  - framework: nist-800-53r5
+    control_id: AU-10
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      Agents invoke MCP tools as processes acting on behalf of a user; without tamper-evident records
+      binding each tool call to the user and agent session, the user can dispute having initiated it.
+      Non-repudiation addresses that gap.
+    check_ids: []
+  - framework: nist-800-53r5
+    control_id: SI-4
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      System monitoring of MCP traffic and tool activity provides detection where per-call audit logging is
+      missing or incomplete.
+    check_ids: []
+  - framework: nist-csf-2.0
+    control_id: PR.PS-04
+    relationship: intersects_with
+    confidence: high
+    rationale: >-
+      Log records of MCP tool calls should be generated and made available to continuous monitoring rather
+      than left in client-local debug output.
+    check_ids: []
+  - framework: nist-csf-2.0
+    control_id: DE.CM-09
+    relationship: intersects_with
+    confidence: medium
+    rationale: >-
+      Monitoring MCP servers and agent runtimes for adverse events depends on telemetry from those
+      runtimes being collected in the first place.
+    check_ids: []

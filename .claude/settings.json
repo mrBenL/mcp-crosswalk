@@ -1,0 +1,176 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(./**)",
+      "Edit(./**)",
+      "Bash(uv *)",
+      "Bash(python3 *)",
+      "Bash(python *)",
+      "Bash(.venv/bin/*)",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git rm *)",
+      "Bash(git ls-files *)",
+      "Bash(mkdir *)",
+      "Bash(ls *)",
+      "Bash(cp *)",
+      "Bash(mv *)",
+      "WebFetch(domain:owasp.org)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(rm -rf .pytest_cache .mypy_cache .ruff_cache .coverage htmlcov out mcpxw-report)",
+      "Bash(git show *)",
+      "Bash(git check-ignore *)",
+      "Bash(git status)",
+      "Bash(git log)",
+      "Bash(git diff)"
+    ],
+    "deny": [
+      "Edit(./docs/build-log/CLAUDE.md)",
+      "Edit(./docs/build-log/BUILD_SPEC.md)",
+      "Edit(./docs/build-log/LAUNCH.md)",
+      "Edit(./CORRECTIONS.md)",
+      "Edit(./docs/build-log/V02_SPEC.md)",
+      "Edit(./.claude/**)",
+      "Read(~/.ssh/**)",
+      "Read(~/.aws/**)",
+      "Read(~/.gnupg/**)",
+      "Read(~/.config/gh/**)",
+      "Read(~/.netrc)",
+      "Read(~/.pypirc)",
+      "Read(~/.claude.json)",
+      "Read(~/.cursor/**)",
+      "Read(~/.codeium/**)",
+      "Read(~/.config/Claude/**)",
+      "Read(~/.config/Code/**)",
+      "Read(~/Library/Application Support/Claude/**)",
+      "Read(~/Library/Application Support/Code/**)",
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Bash(sudo *)",
+      "Bash(su *)",
+      "Bash(apt *)",
+      "Bash(apt-get *)",
+      "Bash(dnf *)",
+      "Bash(yum *)",
+      "Bash(brew *)",
+      "Bash(snap *)",
+      "Bash(npm *)",
+      "Bash(npx *)",
+      "Bash(bunx *)",
+      "Bash(pnpm *)",
+      "Bash(uvx *)",
+      "Bash(uv tool *)",
+      "Bash(uv publish *)",
+      "Bash(uv python install *)",
+      "Bash(pipx *)",
+      "Bash(pip install --user *)",
+      "Bash(twine *)",
+      "Bash(docker *)",
+      "Bash(podman *)",
+      "Bash(curl *)",
+      "Bash(wget *)",
+      "Bash(gh *)",
+      "Bash(git push *)",
+      "Bash(git config *)",
+      "Bash(git reset *)",
+      "Bash(git clean *)",
+      "Bash(git rebase *)",
+      "Bash(git checkout *)",
+      "Bash(git restore *)",
+      "Bash(git stash *)",
+      "Bash(git commit --amend *)",
+      "Bash(git remote *)",
+      "Bash(chown *)",
+      "Bash(chmod -R *)",
+      "Bash(rm -rf /*)",
+      "Bash(rm -rf ~*)",
+      "Bash(rm -rf ..*)",
+      "Bash(rm -rf $*)",
+      "Bash(env)",
+      "Bash(printenv *)",
+      "Bash(mcpxw scan --discover *)",
+      "Bash(uv run mcpxw scan --discover *)"
+    ]
+  },
+  "sandbox": {
+    "enabled": true,
+    "failIfUnavailable": true,
+    "allowUnsandboxedCommands": false,
+    "autoAllowBashIfSandboxed": true,
+    "filesystem": {
+      "denyRead": [
+        "~/.ssh",
+        "~/.aws",
+        "~/.gnupg",
+        "~/.config/gh",
+        "~/.netrc",
+        "~/.pypirc",
+        "~/.claude.json",
+        "~/.cursor",
+        "~/.codeium",
+        "~/.config/Claude",
+        "~/.config/Code",
+        "~/Library/Application Support/Claude",
+        "~/Library/Application Support/Code"
+      ]
+    },
+    "network": {
+      "allowedDomains": [
+        "pypi.org",
+        "files.pythonhosted.org",
+        "github.com",
+        "raw.githubusercontent.com",
+        "objects.githubusercontent.com"
+      ]
+    },
+    "credentials": {
+      "envVars": [
+        {
+          "name": "GITHUB_TOKEN",
+          "mode": "deny"
+        },
+        {
+          "name": "GH_TOKEN",
+          "mode": "deny"
+        },
+        {
+          "name": "ANTHROPIC_API_KEY",
+          "mode": "deny"
+        },
+        {
+          "name": "OPENAI_API_KEY",
+          "mode": "deny"
+        },
+        {
+          "name": "AWS_ACCESS_KEY_ID",
+          "mode": "deny"
+        },
+        {
+          "name": "AWS_SECRET_ACCESS_KEY",
+          "mode": "deny"
+        },
+        {
+          "name": "AWS_SESSION_TOKEN",
+          "mode": "deny"
+        },
+        {
+          "name": "NPM_TOKEN",
+          "mode": "deny"
+        },
+        {
+          "name": "PYPI_TOKEN",
+          "mode": "deny"
+        }
+      ]
+    }
+  },
+  "env": {
+    "UV_CACHE_DIR": ".cache/uv",
+    "PIP_CACHE_DIR": ".cache/pip",
+    "UV_PYTHON_DOWNLOADS": "never"
+  }
+}

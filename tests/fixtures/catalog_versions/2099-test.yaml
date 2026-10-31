@@ -1,0 +1,19 @@
+# SYNTHETIC TEST-ONLY catalog (not an OWASP publication). Compared with 2025-beta: MCP07 is
+# renumbered to MCP11, MCP08 is retired, and MCP12 is new. Used by tests/test_versions.py.
+version: "2099-test"
+retrieved: "2099-01-01"
+source_url: "https://example.invalid/test-only"
+license_note: >-
+  Synthetic test-only catalog that exercises the version and migration mechanism.
+  Not an OWASP publication.
+risks:
+  - {id: "MCP01:2099", short_id: MCP01, title: "Token Mismanagement & Secret Exposure", summary: "Synthetic test risk carried over from MCP01.", source_url: "https://example.invalid/test-only"}
+  - {id: "MCP02:2099", short_id: MCP02, title: "Privilege Escalation via Scope Creep", summary: "Synthetic test risk carried over from MCP02.", source_url: "https://example.invalid/test-only"}
+  - {id: "MCP03:2099", short_id: MCP03, title: "Tool Poisoning", summary: "Synthetic test risk carried over from MCP03.", source_url: "https://example.invalid/test-only"}
+  - {id: "MCP04:2099", short_id: MCP04, title: "Software Supply Chain Attacks & Dependency Tampering", summary: "Synthetic test risk carried over from MCP04.", source_url: "https://example.invalid/test-only"}
+  - {id: "MCP05:2099", short_id: MCP05, title: "Command Injection & Execution", summary: "Synthetic test risk carried over from MCP05.", source_url: "https://example.invalid/test-only"}
+  - {id: "MCP06:2099", short_id: MCP06, title: "Prompt Injection via Contextual Payloads", summary: "Synthetic test risk carried over from MCP06.", source_url: "https://example.invalid/test-only"}
+  - {id: "MCP09:2099", short_id: MCP09, title: "Shadow MCP Servers", summary: "Synthetic test risk carried over from MCP09.", source_url: "https://example.invalid/test-only"}
+  - {id: "MCP10:2099", short_id: MCP10, title: "Context Injection & Over-Sharing", summary: "Synthetic test risk carried over from MCP10.", source_url: "https://example.invalid/test-only"}
+  - {id: "MCP11:2099", short_id: MCP11, title: "Insufficient Authentication & Authorization", summary: "Synthetic test risk renumbered from MCP07.", source_url: "https://example.invalid/test-only"}
+  - {id: "MCP12:2099", short_id: MCP12, title: "Synthetic New Risk", summary: "Synthetic risk that exists only in this test catalog.", source_url: "https://example.invalid/test-only"}
