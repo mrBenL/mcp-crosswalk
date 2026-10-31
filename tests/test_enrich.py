@@ -347,7 +347,7 @@ def test_input_growing_past_cap_while_read(tmp_path: Path, monkeypatch: pytest.M
     path = _copy("rule_id.sarif", tmp_path)
     monkeypatch.setattr(enrich, "MAX_SARIF_BYTES", 10)
     monkeypatch.setattr(
-        Path, "stat", lambda self: type("S", (), {"st_size": 1, "st_mode": 0o100644})()
+        Path, "stat", lambda self, *a, **k: type("S", (), {"st_size": 1, "st_mode": 0o100644})()
     )
     with pytest.raises(enrich.EnrichInputError, match="larger than"):
         enrich.load_sarif(path)
