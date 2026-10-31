@@ -93,6 +93,10 @@ which `mcpxw scan` never does. This project adds a control layer on top of scann
 - **The data is open and versioned.** YAML under CC BY 4.0 with a JSON Schema, and a migration path for when OWASP
   renumbers its list.
 
+## Who uses it
+
+An ISSO preparing for FedRAMP finds 31 unapproved MCP servers on developer laptops, turns the findings into POA&M entries mapped to 800-53, and knows which SSP statements need an MCP paragraph. See the full walkthrough in [`docs/use-case.md`](docs/use-case.md).
+
 ## The crosswalk
 
 - Read it: [`docs/crosswalk.md`](docs/crosswalk.md) (also [CSV](docs/crosswalk.csv)). Source:
